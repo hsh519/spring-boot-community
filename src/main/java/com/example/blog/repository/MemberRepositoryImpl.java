@@ -1,6 +1,7 @@
 package com.example.blog.repository;
 
 import com.example.blog.domain.Member;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 @Repository
+@Slf4j
 public class MemberRepositoryImpl implements MemberRepository {
 
     private JdbcTemplate template;
@@ -21,7 +23,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public Member save(Member member) {
         String sql = "insert into member values(?,?,?,?)";
-        template.update(sql, member.getMemberSeq(), member.getMemberId(), member.getMemberPw(), member.getMemberName());
+        template.update(sql, 3L, member.getMemberId(), member.getMemberPw(), member.getMemberName());
         return member;
     }
 
