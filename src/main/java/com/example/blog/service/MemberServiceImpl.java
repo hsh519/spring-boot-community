@@ -19,4 +19,10 @@ public class MemberServiceImpl implements MemberService {
     public void register(Member member) {
         memberRepository.save(member);
     }
+
+    @Override
+    @Transactional
+    public Member login(Member member) {
+        return memberRepository.findById(member.getMemberId());
+    }
 }

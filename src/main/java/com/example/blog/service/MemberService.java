@@ -6,4 +6,5 @@ import java.sql.SQLException;
 
 public interface MemberService {
     void register(Member member);
+    Member login(Member member);
 }
