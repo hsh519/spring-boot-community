@@ -14,8 +14,9 @@
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post">Sample Post</a></li>
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact">Contact</a></li>
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="register">회원가입</a></li>
-          <li th:if="*{session.containsKey(loginMember)}" class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="login">로그아웃</a></li>
+          <li th:if="*{session.containsKey(loginMember)}" class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="logout">로그아웃</a></li>
           <li th:unless="*{session.containsKey(loginMember)}" class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="login">로그인</a></li>
+          <li th:if="*{session.containsKey(loginMember)}" class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post">글쓰기</a></li>
 
         </ul>
       </div>
