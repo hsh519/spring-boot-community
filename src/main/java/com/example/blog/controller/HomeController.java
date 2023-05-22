@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -24,7 +25,13 @@ public class HomeController {
     private PostService postService;
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            Member loginMember = (Member) session.getAttribute("loginMember");
+            List<Post> postList = postService.getPostList(loginMember);
+            model.addAttribute("postList", postList);
+        }
         return "index";
     }
 

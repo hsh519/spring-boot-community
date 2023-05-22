@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -22,13 +23,19 @@ public class PostServiceImpl implements PostService {
 
         String date = getDateToString();
 
-        post.setPostSeq(1L);
+        post.setPostSeq(3L);
         post.setMemberSeq(member.getMemberSeq());
         post.setPostWriter(member.getMemberName());
         post.setPostRegister(date);
         post.setPostUpdate(date);
 
         postRepository.save(post);
+    }
+
+    @Override
+    @Transactional
+    public List<Post> getPostList(Member member) {
+        return postRepository.postAll(member.getMemberSeq());
     }
 
     private static String getDateToString() {
