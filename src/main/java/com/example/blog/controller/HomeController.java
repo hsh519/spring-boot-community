@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +68,15 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
+
     @GetMapping("/post")
     public String postForm(Model model) {
         model.addAttribute("post", new Post());
@@ -84,5 +94,42 @@ public class HomeController {
 
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/post/{postSeq}")
+    public String getPost(@PathVariable Long postSeq, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        } else {
+            Post findPost = postService.getPost(postSeq);
+            model.addAttribute("post", findPost);
+        }
+        return "/post";
+    }
+
+    @GetMapping("/post/update/{postSeq}")
+    public String postUpdateForm(@PathVariable Long postSeq, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        } else {
+            Post findPost = postService.getPost(postSeq);
+            model.addAttribute("post", findPost);
+        }
+        return "/postForm";
+
+    }
+
+    @PostMapping("/post/update/{postSeq}")
+    public String postUpdate(@PathVariable Long postSeq, @ModelAttribute Post post, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        } else {
+            log.info("post = {}", post.toString());
+            postService.updatePost(post, postSeq);
+        }
+        return "redirect:/post/{postSeq}";
     }
 }

@@ -38,6 +38,18 @@ public class PostServiceImpl implements PostService {
         return postRepository.postAll(member.getMemberSeq());
     }
 
+    @Override
+    @Transactional
+    public Post getPost(Long postSeq) {
+        return postRepository.findBySeq(postSeq);
+    }
+
+    @Override
+    @Transactional
+    public void updatePost(Post post, Long postSeq) {
+        postRepository.update(post, postSeq);
+    }
+
     private static String getDateToString() {
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

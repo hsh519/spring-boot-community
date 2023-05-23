@@ -9,4 +9,8 @@ public interface PostRepository {
     void save(Post post);
 
     List<Post> postAll(Long memberSeq);
+
+    Post findBySeq(Long postSeq);
+
+    void update(Post post, Long postSeq);
 }

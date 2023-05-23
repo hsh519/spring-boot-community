@@ -10,4 +10,8 @@ public interface PostService {
     void post(Post post, Member member);
 
     List<Post> getPostList(Member member);
+
+    Post getPost(Long postSeq);
+
+    void updatePost(Post post, Long postSeq);
 }

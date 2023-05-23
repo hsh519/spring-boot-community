@@ -37,7 +37,7 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
                     <div th:each="post : ${postList}" class="post-preview">
-                        <a href="post.html">
+                        <a th:href="'post/' + ${post.postSeq}">
                             <h2 th:text="${post.postName}" class="post-title">Man must explore, and this is exploration at its greatest</h2>
                         </a>
                         <p class="post-meta">
