@@ -14,4 +14,6 @@ public interface PostService {
     Post getPost(Long postSeq);
 
     void updatePost(Post post, Long postSeq);
+
+    void deletePost(Long postSeq);
 }

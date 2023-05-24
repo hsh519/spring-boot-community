@@ -47,6 +47,12 @@ public class PostRepositoryImpl implements PostRepository {
         templates.update(sql, post.getPostName(), post.getPostContent(), getDateToString() ,post.getPostTag(), postSeq);
     }
 
+    @Override
+    public void delete(Long postSeq) {
+        String sql = "delete from post where post_seq = ?";
+        templates.update(sql, postSeq);
+    }
+
     private RowMapper<Post> postAllRowMapper() {
         return (rs, rowNum) -> {
             Post post = new Post();

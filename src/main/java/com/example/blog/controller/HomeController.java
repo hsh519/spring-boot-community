@@ -132,4 +132,15 @@ public class HomeController {
         }
         return "redirect:/post/{postSeq}";
     }
+
+    @GetMapping("/post/delete/{postSeq}")
+    public String postDelete(@PathVariable Long postSeq, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        } else {
+            postService.deletePost(postSeq);
+        }
+        return "redirect:/";
+    }
 }

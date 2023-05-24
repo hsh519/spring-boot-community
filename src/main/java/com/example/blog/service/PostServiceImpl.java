@@ -50,6 +50,12 @@ public class PostServiceImpl implements PostService {
         postRepository.update(post, postSeq);
     }
 
+    @Override
+    @Transactional
+    public void deletePost(Long postSeq) {
+        postRepository.delete(postSeq);
+    }
+
     private static String getDateToString() {
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

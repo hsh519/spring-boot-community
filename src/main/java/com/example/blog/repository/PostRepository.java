@@ -13,4 +13,6 @@ public interface PostRepository {
     Post findBySeq(Long postSeq);
 
     void update(Post post, Long postSeq);
+
+    void delete(Long postSeq);
 }

@@ -19,7 +19,7 @@
         <!-- Navigation-->
         <div th:replace="~{fragment/navigation.html :: fragment-navigation}"></div>
         <!-- Page Header-->
-        <form  th:object="${post}" th:action="'update/' + ${post.postSeq}" method="get">
+        <form  th:object="${post}" method="get">
             <header class="masthead" style="background-image: url('../assets/img/post-bg.jpg')">
                 <div class="container position-relative px-4 px-lg-5">
                     <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -44,10 +44,11 @@
                         <p th:text="*{postTag}"></p>
                     </div>
                 </div>
-                <button type="submit">수정</button>
-                <button type="submit">삭제</button>
             </article>
+            <button type="submit" th:formaction="'update/' + ${post.postSeq}">수정</button>
+            <button type="submit" th:formaction="'delete/' + ${post.postSeq}">삭제</button>
         </form>
+
         <!-- Footer-->
         <div th:replace="~{fragment/footer.html :: fragment-footer}"></div>
         <!-- Bootstrap core JS-->
