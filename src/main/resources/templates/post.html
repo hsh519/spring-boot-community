@@ -49,6 +49,18 @@
             <button type="submit" th:formaction="'delete/' + ${post.postSeq}">삭제</button>
         </form>
 
+        <div th:each="comment: ${comments}">
+            <p th:text="${comment.comment_writer}"></p>
+            <p th:text="${comment.comment_content}"></p>
+            <p th:text="${comment.comment_update}"></p>
+            <br />
+        </div>
+
+        <form th:action="'/comment?postSeq='+${post.postSeq}" method="post">
+            <input type="text" th:field="${comment.comment_content}">
+            <button type="submit">댓글</button>
+        </form>
+
         <!-- Footer-->
         <div th:replace="~{fragment/footer.html :: fragment-footer}"></div>
         <!-- Bootstrap core JS-->

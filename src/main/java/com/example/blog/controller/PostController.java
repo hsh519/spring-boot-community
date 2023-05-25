@@ -3,6 +3,7 @@ package com.example.blog.controller;
 import com.example.blog.domain.Comment;
 import com.example.blog.domain.Member;
 import com.example.blog.domain.Post;
+import com.example.blog.service.CommentService;
 import com.example.blog.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,13 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class PostController {
 
     private PostService postService;
-
+    private CommentService commentService;
     @GetMapping("/post")
     public String postForm(Model model) {
         model.addAttribute("post", new Post());
@@ -36,10 +38,13 @@ public class PostController {
     }
 
     @GetMapping("/post/{postSeq}")
-    public String getPost(@PathVariable Long postSeq, HttpServletRequest request, Model model) {
+    public String getPost(@PathVariable Long postSeq, Model model) {
         Post findPost = postService.getPost(postSeq);
+        List<Comment> commentList = commentService.getCommentList(postSeq);
+
         model.addAttribute("post", findPost);
         model.addAttribute("comment", new Comment());
+        model.addAttribute("comments", commentList);
         return "/post";
     }
 
