@@ -104,6 +104,7 @@ header {
     padding: 10px 14px;
     background-color: #FFFFFF;
     border: 1px solid #687698;
+    text-decoration: none;
 }
 
 .section-main .button-section {
@@ -160,4 +161,80 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.login-section {
+    margin: 0 auto;
+    width: 400px;
+    height: 300px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0px;
+}
+
+.login-section input {
+    display: block;
+    width: 350px;
+    height: 40px;
+    margin-bottom: 10px;
+    border: 1px solid #687698;
+    border-radius: 4px;
+}
+
+.login-section .login {
+    color: #FFFFFF;
+    width: 350px;
+    height: 40px;
+    font-size: 20px;
+    padding: 5px 10px;
+    background-color: #687698;
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+    margin-bottom: 40px;
+}
+
+.login-section .move-register {
+    text-align: center;
+}
+
+.login-section .move-register a {
+    font-size: 18px;
+    color: #687698;
+    text-decoration: none;
+}
+
+.register-section {
+    margin: 0 auto;
+    width: 400px;
+    height: 300px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0px;
+}
+
+.register-section input {
+    display: block;
+    width: 350px;
+    height: 40px;
+    margin-bottom: 10px;
+    border: 1px solid #687698;
+    border-radius: 4px;
+}
+
+.register-section .register {
+    color: #FFFFFF;
+    width: 350px;
+    height: 40px;
+    font-size: 20px;
+    padding: 5px 10px;
+    background-color: #687698;
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+    margin-bottom: 40px;
+}
+
+.error {
+    color: #FF0000;
 }

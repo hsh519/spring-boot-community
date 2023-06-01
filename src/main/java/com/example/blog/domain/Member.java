@@ -32,5 +32,14 @@ public class Member {
     @Size(max = 50)
     private String memberName;
 
+    public Member(String memberId, String memberPw) {
+        this.memberId = memberId;
+        this.memberPw = memberPw;
+    }
 
+    public Member(String memberId, String memberPw, String memberName) {
+        this.memberId = memberId;
+        this.memberPw = memberPw;
+        this.memberName = memberName;
+    }
 }

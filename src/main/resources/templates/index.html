@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,15 +9,7 @@
 <body>
   <header>
     <div class="header-wrapper">
-      <div class="header-title">Hong Communicate</div>
-      <nav>
-        <ul class="menus">
-          <li class="menu">Forum</li>
-          <li class="menu">About</li>
-          <li class="menu">Member</li>
-          <li class="menu">Login</li>
-        </ul>
-      </nav>
+      <div class="header-title">Communicate</div>
     </div>
   </header>
 
@@ -37,7 +29,7 @@
           </ul>
           <div class="right-section">
             <input class="search" type="text" placeholder="Search" />
-            <button class="account-button">Login / Sign up</button>
+            <a class="account-button" th:href="'/login'" />Login / Sign up</a>
           </div>
         </div>
       </div>

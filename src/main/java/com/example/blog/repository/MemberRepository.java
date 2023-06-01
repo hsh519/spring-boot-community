@@ -6,4 +6,6 @@ public interface MemberRepository {
 
     Member save(Member member);
     Member findById(String memberId);
+
+    Member findByName(String memberName);
 }
