@@ -22,8 +22,6 @@ public class PostServiceImpl implements PostService {
     public void post(Post post, Member member) {
 
         String date = getDateToString();
-
-        post.setPostSeq(3L);
         post.setMemberSeq(member.getMemberSeq());
         post.setPostWriter(member.getMemberName());
         post.setPostRegister(date);
@@ -34,8 +32,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public List<Post> getPostList(Member member) {
-        return postRepository.postAll(member.getMemberSeq());
+    public List<Post> getPostList() {
+        return postRepository.postAll();
     }
 
     @Override

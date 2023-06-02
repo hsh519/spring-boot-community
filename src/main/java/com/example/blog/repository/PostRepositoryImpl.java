@@ -21,18 +21,19 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public void save(Post post) {
+        Long postSeq = getLastPostSeq() + 1;
         String sql = "insert into post values(?,?,?,?,?,?,?,?)";
         templates.update(
-                sql, post.getPostSeq(), post.getMemberSeq(), post.getPostName(),
+                sql, postSeq, post.getMemberSeq(), post.getPostName(),
                 post.getPostWriter(), post.getPostContent(), post.getPostRegister(),
                 post.getPostUpdate(), post.getPostTag()
         );
     }
 
     @Override
-    public List<Post> postAll(Long memberSeq) {
-        String sql = "select post_seq, post_name, post_writer, post_update from post where member_seq = ?";
-        return templates.query(sql, postAllRowMapper(), memberSeq);
+    public List<Post> postAll() {
+        String sql = "select post_seq, post_name, post_writer, post_update from post";
+        return templates.query(sql, postAllRowMapper());
     }
 
     @Override
@@ -80,10 +81,16 @@ public class PostRepositoryImpl implements PostRepository {
             return post;
         };
     }
-    private static String getDateToString() {
+    private String getDateToString() {
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
         return date;
+    }
+
+    private Long getLastPostSeq() {
+        String sql = "select * from post order by post_seq desc limit 1";
+        Post post = templates.queryForObject(sql, postRowMapper());
+        return post.getPostSeq();
     }
 }

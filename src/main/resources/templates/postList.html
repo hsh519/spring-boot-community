@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/postList.css">
+    <script src="https://kit.fontawesome.com/0fc2b155a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="header-wrapper">
+        <div class="header-title">Communicate</div>
+    </div>
+</header>
+
+<main>
+    <div class="main-title-wrapper">
+        <p class="main-title">Online Community</p>
+        <p class="semi-title">자신의 이야기를 자유롭게 작성해보세요</p>
+    </div>
+
+    <section class="main-section">
+        <div class="section-header">
+            <div class="section-header-wrapper">
+                <ul class="left-section">
+                    <li class="section-header-menu">Categories</li>
+                    <li class="section-header-menu">
+                        <a th:href="'/postList'">All Posts</a>
+                    </li>
+                    <li class="section-header-menu">My Posts</li>
+                </ul>
+                <div class="right-section">
+                    <input class="search" type="text" placeholder="Search" />
+                    <a class="account-button" th:href="'/login'" />Login / Sign up</a>
+                </div>
+            </div>
+        </div>
+        <div class="section-main">
+            <div class="button-section">
+                <a class="create-post-button" th:href="'/post'">Create new Post</a>
+            </div>
+        </div>
+        <div class="postList-header">
+            <div class="blank"></div>
+            <div class="show-comment-like">
+                <i class="fa-solid fa-eye"></i>
+                <i class="fa-solid fa-comment"></i>
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <div class="recent-activity">
+                <span>recent activity</span>
+            </div>
+        </div>
+        <div class="postList" th:each="post : ${postList}">
+            <div class="post-title-writer">
+                <span class="post-title" th:text="${post.postName}">title</span>
+                <span class="post-writer" th:text="${post.postWriter}">writer</span>
+            </div>
+            <div class="post-show-comment-like">
+                <span class="show">0</span>
+                <span class="comment">0</span>
+                <span class="like">0</span>
+            </div>
+            <div class="post-recent-activity">
+                <span th:text="${post.postUpdate}">2023-06-02</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

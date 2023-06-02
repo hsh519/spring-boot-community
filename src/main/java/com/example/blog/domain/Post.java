@@ -37,4 +37,9 @@ public class Post {
 
     @Size(max = 100)
     private String postTag;
+
+    public Post(String postName, String postContent) {
+        this.postName = postName;
+        this.postContent = postContent;
+    }
 }

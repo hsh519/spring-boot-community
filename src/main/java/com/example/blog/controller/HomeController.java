@@ -25,13 +25,7 @@ public class HomeController {
     private PostService postService;
 
     @GetMapping("/")
-    public String home(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("loginMember") != null) {
-            Member loginMember = (Member) session.getAttribute("loginMember");
-            List<Post> postList = postService.getPostList(loginMember);
-            model.addAttribute("postList", postList);
-        }
+    public String home() {
         return "index";
     }
 

@@ -24,7 +24,9 @@
         <div class="section-header-wrapper">
           <ul class="left-section">
             <li class="section-header-menu">Categories</li>
-            <li class="section-header-menu">All Posts</li>
+            <li class="section-header-menu">
+              <a th:href="'/postList'">All Posts</a>
+            </li>
             <li class="section-header-menu">My Posts</li>
           </ul>
           <div class="right-section">
@@ -35,7 +37,7 @@
       </div>
       <div class="section-main">
         <div class="button-section">
-          <button class="create-post-button">Create new Post</button>
+          <a class="create-post-button" th:href="'/post'">Create new Post</a>
         </div>
         <ul class="categories">
           <li class="category">

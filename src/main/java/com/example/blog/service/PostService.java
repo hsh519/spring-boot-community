@@ -9,7 +9,7 @@ public interface PostService {
 
     void post(Post post, Member member);
 
-    List<Post> getPostList(Member member);
+    List<Post> getPostList();
 
     Post getPost(Long postSeq);
 

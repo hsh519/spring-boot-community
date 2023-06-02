@@ -1,71 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Clean Blog - Start Bootstrap Theme</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link th:href="'/css/styles.css'" rel="stylesheet" />
-    </head>
-    <body>
-        <!-- Navigation-->
-        <div th:replace="~{fragment/navigation.html :: fragment-navigation}"></div>
-        <!-- Page Header-->
-        <form  th:object="${post}" method="get">
-            <header class="masthead" style="background-image: url('../assets/img/post-bg.jpg')">
-                <div class="container position-relative px-4 px-lg-5">
-                    <div class="row gx-4 gx-lg-5 justify-content-center">
-                        <div class="col-md-10 col-lg-8 col-xl-7">
-                            <div class="post-heading">
-                                <h1 th:text="*{postName}">Man must explore, and this is exploration at its greatest</h1>
-                                <span class="meta">
-                                Posted by
-                                <a th:text="*{postWriter}">Start Bootstrap</a>
-                                <span th:text="*{postUpdate}">on August 24, 2023</span>
-                            </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            <!-- Post Content-->
-            <article class="mb-4">
-                <div class="container px-4 px-lg-5">
-                    <div class="row gx-4 gx-lg-5 justify-content-center">
-                        <div th:text="*{postContent}" class="col-md-10 col-lg-8 col-xl-7">content</div>
-                        <p th:text="*{postTag}"></p>
-                    </div>
-                </div>
-            </article>
-            <button type="submit" th:formaction="'update/' + ${post.postSeq}">수정</button>
-            <button type="submit" th:formaction="'delete/' + ${post.postSeq}">삭제</button>
-        </form>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/post.css", rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0fc2b155a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="header-wrapper">
+        <div class="header-title">Communicate</div>
+    </div>
+</header>
 
-        <div th:each="comment: ${comments}">
-            <p th:text="${comment.comment_writer}"></p>
-            <p th:text="${comment.comment_content}"></p>
-            <p th:text="${comment.comment_update}"></p>
-            <br />
+<main>
+    <div class="main-title-wrapper">
+        <p class="main-title">Online Community</p>
+        <p class="semi-title">자신의 이야기를 자유롭게 작성해보세요</p>
+    </div>
+
+    <section class="main-section">
+        <div class="section-header">
+            <div class="section-header-wrapper">
+               <p>게시글 작성</p>
+            </div>
         </div>
-
-        <form th:action="'/comment?postSeq='+${post.postSeq}" method="post">
-            <input type="text" th:field="${comment.comment_content}">
-            <button type="submit">댓글</button>
+        <form action="" method="post" th:object="${postForm}">
+            <div class="title-wrapper">
+                <p class="title">제목</p>
+                <input type="text" th:field="*{postName}" placeholder="제목을 입력하세요."/>
+                <p class="error" th:errors="*{postName}"></p>
+            </div>
+            <div class="content-wrapper">
+                <p class="content">내용</p>
+                <textarea th:field="*{postContent}" placeholder="내용을 입력하세요"></textarea>
+                <p class="error" th:errors="*{postContent}"></p>
+            </div>
+            <div class="button-wrapper">
+                <button class="post">등록하기</button>
+                <a href="/" class="move-postlist">목록으로</a>
+            </div>
         </form>
+    </section>
+</main>
 
-        <!-- Footer-->
-        <div th:replace="~{fragment/footer.html :: fragment-footer}"></div>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+</body>
 </html>
