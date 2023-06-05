@@ -26,6 +26,7 @@ public class Post {
     @NotNull
     private String postWriter;
 
+    @NotBlank
     @Size(max = 1000)
     private String postContent;
 

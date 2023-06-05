@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/post.css", rel="stylesheet">
+  <script src="https://kit.fontawesome.com/0fc2b155a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+  <div class="header-wrapper">
+    <div class="header-title">Communicate</div>
+  </div>
+</header>
+
+<main>
+  <div class="main-title-wrapper">
+    <p class="main-title">Online Community</p>
+    <p class="semi-title">자신의 이야기를 자유롭게 작성해보세요</p>
+  </div>
+
+  <section class="main-section">
+    <div class="section-header">
+      <div class="section-header-wrapper">
+        <p>게시글 작성</p>
+      </div>
+    </div>
+    <form action="" method="post" th:object="${postForm}">
+      <div class="title-wrapper">
+        <p class="title">제목</p>
+        <input type="text" th:field="*{postName}" placeholder="제목을 입력하세요."/>
+        <p class="error" th:errors="*{postName}">11</p>
+      </div>
+      <div class="content-wrapper">
+        <p class="content">내용</p>
+        <textarea th:field="*{postContent}" placeholder="내용을 입력하세요"></textarea>
+        <p class="error" th:errors="*{postContent}">11</p>
+      </div>
+      <div class="button-wrapper">
+        <button class="post">수정하기</button>
+        <a th:href="'/postList/' + *{postSeq}" class="move-postlist">취소</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+</body>
+</html>

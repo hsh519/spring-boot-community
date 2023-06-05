@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/postOne.css", rel="stylesheet">
+  <link rel="stylesheet" href="/css/postList.css">
+  <script src="https://kit.fontawesome.com/0fc2b155a7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+  <div class="header-wrapper">
+    <div class="header-title">Communicate</div>
+  </div>
+</header>
+
+<main>
+  <div class="main-title-wrapper">
+    <p class="main-title">Online Community</p>
+    <p class="semi-title">자신의 이야기를 자유롭게 작성해보세요</p>
+  </div>
+
+  <section class="main-section">
+    <div class="section-header">
+      <div class="section-header-wrapper">
+        <ul class="left-section">
+          <li class="section-header-menu">Categories</li>
+          <li class="section-header-menu">
+            <a th:href="'/postList'">All Posts</a>
+          </li>
+          <li class="section-header-menu">My Posts</li>
+        </ul>
+        <div class="right-section">
+          <input class="search" type="text" placeholder="Search" />
+          <a class="account-button" th:href="'/login'" />Login / Sign up</a>
+        </div>
+      </div>
+    </div>
+    <div class="section-main">
+      <div class="left-section" th:object="${post}">
+        <div class="writer-datetime-wrapper">
+          <div>
+            <span class="writer" th:text="*{postWriter}">writer</span>
+            <span class="datetime" th:text="*{postUpdate}">Nov 29, 2022</span>
+          </div>
+          <i></i>
+        </div>
+        <div class="title-content-wrapper" >
+          <p class="title" th:text="*{postName}">Benefits and Allowances</p>
+          <span class="content" th:text="*{postContent}">Post about your forum topic here. Engage your audience with relevant and interesting posts that will keep them coming back for more. Add even more volume to your post by uploading media and engaging your readers with both images and videos. Simply click “Create New Post” to start connecting with your audience now.</span>
+        </div>
+        <div class="comment">Comments</div>
+      </div>
+      <div class="right-section">
+        <div th:if="${#session.getAttribute('loginMember').getMemberSeq() == post.getMemberSeq()}" style="margin-bottom: 40px;">
+          <a class="update" th:href="'/update/' + *{post.postSeq}">수정</a>
+          <a class="delete" th:href="'/delete/' + *{post.postSeq}">삭제</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-eye"></i>
+          <span>94 views</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-comment"></i>
+          <span>0 comments</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-heart"></i>
+          <span>53 like</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

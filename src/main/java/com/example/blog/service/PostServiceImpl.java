@@ -2,6 +2,7 @@ package com.example.blog.service;
 
 import com.example.blog.domain.Member;
 import com.example.blog.domain.Post;
+import com.example.blog.domain.PostForm;
 import com.example.blog.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void updatePost(Post post, Long postSeq) {
-        postRepository.update(post, postSeq);
+    public void updatePost(PostForm postForm, Long postSeq) {
+        postRepository.update(postForm, postSeq);
     }
 
     @Override

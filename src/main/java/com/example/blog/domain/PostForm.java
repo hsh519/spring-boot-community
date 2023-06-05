@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class PostForm {
 
+    private Long postSeq;
+
     @NotBlank
     @Size(max = 50)
     private String postName;

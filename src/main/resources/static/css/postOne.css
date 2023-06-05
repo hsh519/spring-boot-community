@@ -1,0 +1,61 @@
+.section-main {
+    display: flex;
+    margin-top: 30px;
+}
+.section-main .left-section {
+    flex: 1 1 75%;
+}
+.section-main .left-section .writer-datetime-wrapper {
+    margin-bottom: 20px;
+}
+.section-main .left-section .datetime {
+    font-weight: lighter;
+}
+.section-main .left-section .writer {
+    display: block;
+}
+.section-main .left-section .title {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+.section-main .left-section .content {
+    font-weight: lighter;
+}
+.section-main .left-section .title-content-wrapper {
+    margin-bottom: 50px;
+}
+.section-main .left-section .comment {
+    padding: 20px 0px;
+    border-top: 1px solid #A1A1A1;
+    font-size: 18px;
+}
+.section-main .right-section {
+    flex: 1 1 25%;
+    padding: 40px 50px;
+}
+.section-main .right-section .update {
+    font-size: 15px;
+    color: #FFFFFF;
+    padding: 10px 14px;
+    background-color: #687698;
+    border: 1px solid #687698;
+    text-decoration: none;
+}
+.section-main .right-section .delete {
+    font-size: 15px;
+    color: #687698;
+    padding: 10px 14px;
+    background-color: #FFFFFF;
+    border: 1px solid #687698;
+    text-decoration: none;
+}
+.section-main .right-section div {
+    margin-bottom: 20px;
+}
+.section-main .right-section div i {
+    margin-right: 10px;
+    font-weight: lighter;
+}
+.section-main .right-section div span {
+    font-weight: lighter;
+}

@@ -2,6 +2,7 @@ package com.example.blog.service;
 
 import com.example.blog.domain.Member;
 import com.example.blog.domain.Post;
+import com.example.blog.domain.PostForm;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface PostService {
 
     Post getPost(Long postSeq);
 
-    void updatePost(Post post, Long postSeq);
+    void updatePost(PostForm postForm, Long postSeq);
 
     void deletePost(Long postSeq);
 }

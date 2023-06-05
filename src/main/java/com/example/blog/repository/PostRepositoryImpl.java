@@ -1,6 +1,7 @@
 package com.example.blog.repository;
 
 import com.example.blog.domain.Post;
+import com.example.blog.domain.PostForm;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -43,9 +44,9 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public void update(Post post, Long postSeq) {
-        String sql = "update post set post_name=?, post_content=?, post_update=?, post_tag=? where post_seq= ?";
-        templates.update(sql, post.getPostName(), post.getPostContent(), getDateToString() ,post.getPostTag(), postSeq);
+    public void update(PostForm postForm, Long postSeq) {
+        String sql = "update post set post_name=?, post_content=?, post_update=? where post_seq= ?";
+        templates.update(sql, postForm.getPostName(), postForm.getPostContent(), getDateToString(), postSeq);
     }
 
     @Override
