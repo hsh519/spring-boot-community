@@ -27,17 +27,6 @@ header {
     font-style: italic;
 }
 
-.header-wrapper .menus {
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.header-wrapper .menus .menu {
-    list-style: none;
-    font-size: 18px;
-}
-
 main {
     margin-bottom: 50px;
 }
@@ -65,46 +54,46 @@ main {
     background-color: #FFFFFF;
 }
 
-.main-section .section-header {
+.main-section .header {
     border-bottom: 1px solid #A1A1A1;
 }
 
-.main-section .section-header .section-header-wrapper {
+.main-section .header .section-header-wrapper {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.main-section .section-header .section-header-wrapper .left-section {
+.main-section .header .section-header-wrapper .left-section {
     width: 333px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.main-section .section-header .section-header-wrapper .left-section .section-header-menu {
+.main-section .header .section-header-wrapper .left-section .section-header-menu {
     list-style: none;
     font-size: 18px;
 }
 
-.main-section .section-header .section-header-wrapper .left-section .section-header-menu a {
+.main-section .header .section-header-wrapper .left-section .section-header-menu a {
     text-decoration: none;
     color: #000000;
 }
 
-.main-section .section-header .section-header-wrapper .right-section {
+.main-section .header .section-header-wrapper .right-section {
     width: 350px;
     display: flex;
     justify-content: space-between;
 }
 
-.main-section .section-header .section-header-wrapper .right-section .search {
+.main-section .header .section-header-wrapper .right-section .search {
     width: 200px;
     font-size: 15px;
     padding: 10px 14px;
 }
 
-.main-section .section-header .section-header-wrapper .right-section .account-button {
+.main-section .header .section-header-wrapper .right-section .account-button {
     margin-left: 10px;
     font-size: 15px;
     color: #687698;
@@ -114,13 +103,13 @@ main {
     text-decoration: none;
 }
 
-.section-main .button-section {
+.main .button-section {
     padding-top: 20px;
     margin-bottom: 40px;
     text-align: end;
 }
 
-.section-main .button-section .create-post-button {
+.main .button-section .create-post-button {
     font-size: 15px;
     color: #FFFFFF;
     padding: 10px 14px;
@@ -129,25 +118,25 @@ main {
     text-decoration: none;
 }
 
-.section-main .categories {
+.main .categories {
     padding: 0 20px;
 }
 
-.section-main .categories .category {
+.main .categories .category {
     display: flex;
     margin-bottom: 60px;
 }
 
-.section-main .categories .left-section {
+.main .categories .left-section {
     flex: 1 1 10%;
 }
 
-.section-main .categories .left-section img {
+.main .categories .left-section img {
     width: 100px;
     height: 60px;
 }
 
-.section-main .categories .right-section {
+.main .categories .right-section {
     flex: 1 1 90%;
     padding-left: 10px;
     display: flex;
@@ -155,17 +144,17 @@ main {
 }
 
 
-.section-main .categories .right-section .category-title {
+.main .categories .right-section .category-title {
     margin-top: 4px;
     font-size: 22px;
     margin-bottom: 4px;
 }
 
-.section-main .categories .right-section .category-content {
+.main .categories .right-section .category-content {
     font-weight: lighter;
 }
 
-.section-main .categories .right-section .category-pin {
+.main .categories .right-section .category-pin {
     display: flex;
     justify-content: center;
     align-items: center;

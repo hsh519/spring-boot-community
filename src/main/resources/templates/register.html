@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/register.css">
     <script src="https://kit.fontawesome.com/0fc2b155a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -25,9 +25,9 @@
             <input th:errorclass="field-error" class="name-box" type="text" th:field="*{memberName}" placeholder="닉네임">
             <p class="error" th:errors="*{memberName}"></p>
             <button class="register">회원가입</button>
-<!--            <div class="move-register">-->
-<!--                <a th:href="'/login'">이미 계정이 있으신가요?</a>-->
-<!--            </div>-->
+            <div class="move-register">
+                <a th:href="'/login'">이미 계정이 있으신가요?</a>
+            </div>
         </form>
     </section>
 

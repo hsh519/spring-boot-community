@@ -1,0 +1,30 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F9DFBF;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+section {
+    width: 600px;
+    text-align: center;
+}
+.error-wrapper i {
+    color: #FF0000;
+    font-size: 160px;
+}
+.error-wrapper p {
+    font-weight: bold;
+    font-size: 50px;
+}
+.error-wrapper span {
+    display: block;
+    font-size: 30px;
+    letter-spacing: 3px;
+}

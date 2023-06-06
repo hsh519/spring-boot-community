@@ -1,47 +1,100 @@
-.section-main {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F9DFBF;
+}
+
+header {
+    margin-bottom: 100px;
+}
+
+.header-wrapper {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0px;
     display: flex;
-    margin-top: 30px;
+    justify-content: space-between;
 }
-.section-main .left-section {
-    flex: 1 1 75%;
+
+.header-wrapper .header-title {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    font-style: italic;
 }
-.section-main .left-section .writer-datetime-wrapper {
-    margin-bottom: 20px;
-}
-.section-main .left-section .datetime {
-    font-weight: lighter;
-}
-.section-main .left-section .writer {
-    display: block;
-}
-.section-main .left-section .title {
-    font-size: 30px;
-    margin-bottom: 15px;
-}
-.section-main .left-section .content {
-    font-weight: lighter;
-}
-.section-main .left-section .title-content-wrapper {
+
+main {
     margin-bottom: 50px;
 }
-.section-main .left-section .comment {
-    padding: 20px 0px;
-    border-top: 1px solid #A1A1A1;
+
+.main-title-wrapper {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.main-title-wrapper .main-title {
+    text-align: center;
+    font-size: 100px;
+}
+
+.main-title-wrapper .semi-title {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-section {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    background-color: #FFFFFF;
+}
+
+.main-section .header {
+    border-bottom: 1px solid #A1A1A1;
+}
+
+.main-section .header .section-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.main-section .header .section-header-wrapper .left-section {
+    width: 333px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-section .header .section-header-wrapper .left-section .section-header-menu {
+    list-style: none;
     font-size: 18px;
 }
-.section-main .right-section {
-    flex: 1 1 25%;
-    padding: 40px 50px;
-}
-.section-main .right-section .update {
-    font-size: 15px;
-    color: #FFFFFF;
-    padding: 10px 14px;
-    background-color: #687698;
-    border: 1px solid #687698;
+
+.main-section .header .section-header-wrapper .left-section .section-header-menu a {
     text-decoration: none;
+    color: #000000;
 }
-.section-main .right-section .delete {
+
+.main-section .header .section-header-wrapper .right-section {
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-section .header .section-header-wrapper .right-section .search {
+    width: 200px;
+    font-size: 15px;
+    padding: 10px 14px;
+}
+
+.main-section .header .section-header-wrapper .right-section .account-button {
+    margin-left: 10px;
     font-size: 15px;
     color: #687698;
     padding: 10px 14px;
@@ -49,13 +102,64 @@
     border: 1px solid #687698;
     text-decoration: none;
 }
-.section-main .right-section div {
+.main {
+    display: flex;
+    margin-top: 30px;
+}
+.main .left-section {
+    flex: 1 1 75%;
+}
+.main .left-section .writer-datetime-wrapper {
     margin-bottom: 20px;
 }
-.section-main .right-section div i {
+.main .left-section .datetime {
+    font-weight: lighter;
+}
+.main .left-section .writer {
+    display: block;
+}
+.main .left-section .title {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+.main .left-section .content {
+    font-weight: lighter;
+}
+.main .left-section .title-content-wrapper {
+    margin-bottom: 50px;
+}
+.main .left-section .comment {
+    padding: 20px 0px;
+    border-top: 1px solid #A1A1A1;
+    font-size: 18px;
+}
+.main .right-section {
+    flex: 1 1 25%;
+    padding: 40px 50px;
+}
+.main .right-section .update {
+    font-size: 15px;
+    color: #FFFFFF;
+    padding: 10px 14px;
+    background-color: #687698;
+    border: 1px solid #687698;
+    text-decoration: none;
+}
+.main .right-section .delete {
+    font-size: 15px;
+    color: #687698;
+    padding: 10px 14px;
+    background-color: #FFFFFF;
+    border: 1px solid #687698;
+    text-decoration: none;
+}
+.main .right-section div {
+    margin-bottom: 20px;
+}
+.main .right-section div i {
     margin-right: 10px;
     font-weight: lighter;
 }
-.section-main .right-section div span {
+.main .right-section div span {
     font-weight: lighter;
 }

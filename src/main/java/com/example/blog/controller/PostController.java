@@ -51,10 +51,7 @@ public class PostController {
     }
 
     @GetMapping("/postList")
-    public String postList(@ModelAttribute("error") String error, Model model) {
-        if (!error.isBlank()) {
-            model.addAttribute("error", error);
-        }
+    public String postList(Model model) {
         List<Post> postList = postService.getPostList();
         model.addAttribute("postList", postList);
         return "postList";
@@ -69,7 +66,7 @@ public class PostController {
     }
 
     @GetMapping("/update/{postSeq}")
-    public String postUpdateForm(@PathVariable Long postSeq, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String postUpdateForm(@PathVariable Long postSeq, Model model, HttpServletRequest request) {
         // 로그인 사용자가 수정 버튼이 아닌 url로 접근했을 때, 게시 글 작성자와 일치하는 지 확인
         Post findPost = postService.getPost(postSeq);
 
@@ -80,8 +77,7 @@ public class PostController {
             return "updatePost";
         }
         else {
-            redirectAttributes.addFlashAttribute("error", "잘못된 접근");
-            return "redirect:/postList";
+            return "redirect:/error";
         }
     }
 
@@ -97,7 +93,7 @@ public class PostController {
     }
 
     @GetMapping("/delete/{postSeq}")
-    public String postDelete(@PathVariable Long postSeq, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String postDelete(@PathVariable Long postSeq, HttpServletRequest request) {
         Post post = postService.getPost(postSeq);
 
         HttpSession session = request.getSession(false);
@@ -106,10 +102,12 @@ public class PostController {
             postService.deletePost(postSeq);
             return "redirect:/";
         } else {
-            redirectAttributes.addFlashAttribute("error", "잘못된 접근");
-            return "redirect:/postList";
+            return "redirect:/error";
         }
+    }
 
-
+    @GetMapping("/error")
+    public String error() {
+        return "error";
     }
 }

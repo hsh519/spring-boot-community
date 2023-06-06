@@ -21,7 +21,7 @@
     </div>
 
     <section class="main-section">
-        <div class="section-header">
+        <div class="header">
             <div class="section-header-wrapper">
                 <ul class="left-section">
                     <li class="section-header-menu">Categories</li>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="section-main">
+        <div class="main">
             <div class="button-section">
                 <a class="create-post-button" th:href="'/post'">Create new Post</a>
             </div>
@@ -52,9 +52,10 @@
                 <span>recent activity</span>
             </div>
         </div>
+
         <div class="postList" th:each="post : ${postList}">
             <div class="post-title-writer">
-                <span class="post-title" th:text="${post.postName}">title</span>
+                <a th:href="'/postList/' + ${post.postSeq}" class="post-title" th:text="${post.postName}">title</a>
                 <span class="post-writer" th:text="${post.postWriter}">writer</span>
             </div>
             <div class="post-show-comment-like">
