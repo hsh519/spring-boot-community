@@ -40,70 +40,14 @@
           <a class="create-post-button" th:href="'/post'">Create new Post</a>
         </div>
         <ul class="categories">
-          <li class="category">
+          <li class="category" th:each="category : ${categories}">
             <div class="left-section">
               <img src="/assets/img/test.png" alt="이미지 자리">
             </div>
             <div class="right-section">
               <div class="category-description">
-                <p class="category-title">category title</p>
-                <p class="category-content">category content</p>
-              </div>
-              <div class="category-pin">
-                <i class="fa-solid fa-thumbtack pin"></i>
-              </div>
-            </div>
-          </li>
-          <li class="category">
-            <div class="left-section">
-              <img src="/assets/img/test.png" alt="이미지 자리">
-            </div>
-            <div class="right-section">
-              <div class="category-description">
-                <p class="category-title">category title</p>
-                <p class="category-content">category content</p>
-              </div>
-              <div class="category-pin">
-                <i class="fa-solid fa-thumbtack pin"></i>
-              </div>
-            </div>
-          </li>
-          <li class="category">
-            <div class="left-section">
-              <img src="/assets/img/test.png" alt="이미지 자리">
-            </div>
-            <div class="right-section">
-              <div class="category-description">
-                <p class="category-title">category title</p>
-                <p class="category-content">category content</p>
-              </div>
-              <div class="category-pin">
-                <i class="fa-solid fa-thumbtack pin"></i>
-              </div>
-            </div>
-          </li>
-          <li class="category">
-            <div class="left-section">
-              <img src="/assets/img/test.png" alt="이미지 자리">
-            </div>
-            <div class="right-section">
-              <div class="category-description">
-                <p class="category-title">category title</p>
-                <p class="category-content">category content</p>
-              </div>
-              <div class="category-pin">
-                <i class="fa-solid fa-thumbtack pin"></i>
-              </div>
-            </div>
-          </li>
-          <li class="category">
-            <div class="left-section">
-              <img src="/assets/img/test.png" alt="이미지 자리">
-            </div>
-            <div class="right-section">
-              <div class="category-description">
-                <p class="category-title">category title</p>
-                <p class="category-content">category content</p>
+                <a class="category-title" th:href="'category/' + ${category.categorySeq}" th:text="${category.categoryName}">category title</a>
+                <p class="category-content" th:text="${category.categoryContent}">category content</p>
               </div>
               <div class="category-pin">
                 <i class="fa-solid fa-thumbtack pin"></i>

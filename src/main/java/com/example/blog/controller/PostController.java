@@ -1,9 +1,7 @@
 package com.example.blog.controller;
 
-import com.example.blog.domain.Comment;
-import com.example.blog.domain.Member;
-import com.example.blog.domain.Post;
-import com.example.blog.domain.PostForm;
+import com.example.blog.domain.*;
+import com.example.blog.service.CategoryService;
 import com.example.blog.service.CommentService;
 import com.example.blog.service.PostService;
 import lombok.AllArgsConstructor;
@@ -12,11 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,22 +22,25 @@ import java.util.List;
 public class PostController {
 
     private PostService postService;
+    private CategoryService categoryService;
 
     @GetMapping("/post")
     public String postForm(Model model) {
         model.addAttribute("postForm", new PostForm());
+        model.addAttribute("categoriesName", categoryService.getCategoryList());
         return "post";
     }
 
     @PostMapping("/post")
-    public String post(@Validated @ModelAttribute PostForm postForm, BindingResult bindingResult, HttpServletRequest request, Model model) {
+    public String post(@Validated @ModelAttribute PostForm postForm, BindingResult bindingResult, @RequestParam Long categorySeq, HttpServletRequest request, Model model) {
+        log.info("categorySeq={}", categorySeq);
         // Bean Validation 에 위반될 경우
         if (bindingResult.hasErrors()) {
             model.addAttribute("postForm", postForm);
             return "post";
         }
 
-        Post post = new Post(postForm.getPostName(), postForm.getPostContent());
+        Post post = new Post(categorySeq, postForm.getPostName(), postForm.getPostContent());
         HttpSession session = request.getSession(false);
         Member loginMember = (Member) session.getAttribute("loginMember");
         postService.post(post, loginMember);
@@ -104,6 +101,13 @@ public class PostController {
         } else {
             return "redirect:/error";
         }
+    }
+
+    @GetMapping("category/{categorySeq}")
+    public String postListInCategory(@PathVariable Long categorySeq, Model model) {
+        List<Post> postList = postService.getPostListInCategory(categorySeq);
+        model.addAttribute("postList", postList);
+        return "postList";
     }
 
     @GetMapping("/error")

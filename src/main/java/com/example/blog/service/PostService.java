@@ -12,6 +12,8 @@ public interface PostService {
 
     List<Post> getPostList();
 
+    List<Post> getPostListInCategory(Long categorySeq);
+
     Post getPost(Long postSeq);
 
     void updatePost(PostForm postForm, Long postSeq);

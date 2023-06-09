@@ -19,6 +19,9 @@ public class Post {
     @NotNull
     private Long memberSeq;
 
+    @NotNull
+    private Long categorySeq;
+
     @NotBlank
     @Size(max = 50)
     private String postName;
@@ -39,7 +42,8 @@ public class Post {
     @Size(max = 100)
     private String postTag;
 
-    public Post(String postName, String postContent) {
+    public Post(Long categorySeq, String postName, String postContent) {
+        this.categorySeq = categorySeq;
         this.postName = postName;
         this.postContent = postContent;
     }

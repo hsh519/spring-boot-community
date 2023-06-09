@@ -148,6 +148,8 @@ main {
     margin-top: 4px;
     font-size: 22px;
     margin-bottom: 4px;
+    text-decoration: none;
+    color: #000000;
 }
 
 .main .categories .right-section .category-content {

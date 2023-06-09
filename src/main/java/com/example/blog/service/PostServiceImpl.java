@@ -38,6 +38,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> getPostListInCategory(Long categorySeq) {
+        return postRepository.findByCategory(categorySeq);
+    }
+
+    @Override
     @Transactional
     public Post getPost(Long postSeq) {
         return postRepository.findBySeq(postSeq);
