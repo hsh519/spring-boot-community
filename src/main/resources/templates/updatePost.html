@@ -26,6 +26,31 @@
       </div>
     </div>
     <form action="" method="post" th:object="${postForm}">
+
+      <div class="category-wrapper" style="margin-bottom: 20px;">
+        <p class="category">카테고리</p>
+        <select class="category-options" name="categorySeq"
+                style="width: 150px;
+                    padding: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: #f1f1f1;
+                    color: #333;
+                    font-size: 14px;"
+        >
+          <option th:if="${category.categorySeq} == ${postForm.categorySeq}"
+                  th:each="category : ${categoriesName}"
+                  th:value="${category.categorySeq}"
+                  th:selected
+                  th:text="${category.categoryName}"></option>
+
+          <option th:if="${category.categorySeq} != ${postForm.categorySeq}"
+                  th:each="category : ${categoriesName}"
+                  th:value="${category.categorySeq}"
+                  th:text="${category.categoryName}"></option>
+        </select>
+      </div>
+
       <div class="title-wrapper">
         <p class="title">제목</p>
         <input type="text" th:field="*{postName}" placeholder="제목을 입력하세요."/>

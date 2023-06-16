@@ -39,8 +39,9 @@ public class Post {
     @NotNull
     private String postUpdate;
 
-    @Size(max = 100)
-    private String postTag;
+    private int postView;
+
+    private int postLike;
 
     public Post(Long categorySeq, String postName, String postContent) {
         this.categorySeq = categorySeq;

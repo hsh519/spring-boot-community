@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link href="/css/postOne.css", rel="stylesheet">
-  <link rel="stylesheet" href="/css/postList.css">
   <script src="https://kit.fontawesome.com/0fc2b155a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -43,35 +42,53 @@
             <span class="writer" th:text="*{postWriter}">writer</span>
             <span class="datetime" th:text="*{postUpdate}">Nov 29, 2022</span>
           </div>
-          <i></i>
         </div>
         <div class="title-content-wrapper" >
           <p class="title" th:text="*{postName}">Benefits and Allowances</p>
           <span class="content" th:text="*{postContent}">Post about your forum topic here. Engage your audience with relevant and interesting posts that will keep them coming back for more. Add even more volume to your post by uploading media and engaging your readers with both images and videos. Simply click “Create New Post” to start connecting with your audience now.</span>
         </div>
         <div class="comment">Comments</div>
+        <div th:each="comment : ${commentList}" style="margin-bottom: 15px;">
+          <p class="comment-writer">[[${comment.comment_writer}]]</p>
+          <span class="comment-content">[[${comment.comment_content}]]</span>
+          <span class="comment-update-date">[[${comment.comment_update}]]</span>
+        </div>
+        <form th:action="@{'/comment'}" th:method="post">
+          <input type="hidden" th:field="*{postSeq}">
+          <textarea class="comment-box" th:field="${comment.comment_content}"></textarea>
+          <div th:if="${errors}" style="color: #FF0000;">[[${errors}]]</div>
+          <button>등록</button>
+        </form>
       </div>
       <div class="right-section">
-        <div th:if="${#session.getAttribute('loginMember').getMemberSeq() == post.getMemberSeq()}" style="margin-bottom: 40px;">
+        <div th:if="${loginMember} != null and *{loginMember.memberName} == *{post.postWriter}" style="margin-bottom: 40px;">
           <a class="update" th:href="'/update/' + *{post.postSeq}">수정</a>
           <a class="delete" th:href="'/delete/' + *{post.postSeq}">삭제</a>
         </div>
         <div>
           <i class="fa-solid fa-eye"></i>
-          <span>94 views</span>
+          <span >[[${post.postView}]] views</span>
         </div>
         <div>
           <i class="fa-solid fa-comment"></i>
-          <span>0 comments</span>
+          <span>[[${commentCnt}]] comments</span>
         </div>
         <div>
-          <i class="fa-solid fa-heart"></i>
-          <span>53 like</span>
+          <form th:if="${isLike} == false" th:action="@{'/likes/' + ${postSeq}}" th:method="post" style="display: inline;">
+            <button class="heart-button"><i class="fa-solid fa-heart"></i></button>
+          </form>
+          <form th:if="${isLike} == true" th:action="@{'/likes/' + ${postSeq}}" th:method="post" style="display: inline;">
+            <button class="heart-button"><i class="fa-solid fa-heart fa-beat fill" style="color: #f00505;"></i></button>
+          </form>
+            <span>[[${likeCnt}]] like</span>
+
+
         </div>
       </div>
     </div>
   </section>
 </main>
+
 
 </body>
 </html>

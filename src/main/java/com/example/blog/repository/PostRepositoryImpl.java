@@ -35,8 +35,20 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> postAll() {
-        String sql = "select post_seq, post_name, post_writer, post_update from post";
+        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post";
         return templates.query(sql, postAllRowMapper());
+    }
+
+    @Override
+    public void postViewPlus(Long postSeq) {
+        String sql = "update post set post_view = post_view + 1 where post_seq = ?";
+        templates.update(sql, postSeq);
+    }
+
+    @Override
+    public List<Post> findByCategory(Long categorySeq) {
+        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post where category_seq = ?";
+        return templates.query(sql, postAllRowMapper(), categorySeq);
     }
 
     @Override
@@ -46,15 +58,9 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findByCategory(Long categorySeq) {
-        String sql = "select post_seq, post_name, post_writer, post_update from post where category_seq = ?";
-        return templates.query(sql, postAllRowMapper(), categorySeq);
-    }
-
-    @Override
-    public void update(PostForm postForm, Long postSeq) {
-        String sql = "update post set post_name=?, post_content=?, post_update=? where post_seq= ?";
-        templates.update(sql, postForm.getPostName(), postForm.getPostContent(), getDateToString(), postSeq);
+    public void update(Post post, Long postSeq) {
+        String sql = "update post set post_name=?, post_content=?, post_update=?, category_seq=? where post_seq= ?";
+        templates.update(sql, post.getPostName(), post.getPostContent(), getDateToString(), post.getCategorySeq(), postSeq);
     }
 
     @Override
@@ -70,6 +76,8 @@ public class PostRepositoryImpl implements PostRepository {
             post.setPostName(rs.getString(2));
             post.setPostWriter(rs.getString(3));
             post.setPostUpdate(rs.getString(4));
+            post.setPostView(rs.getInt(5));
+            post.setPostLike(rs.getInt(6));
 
             return post;
         };
@@ -86,7 +94,9 @@ public class PostRepositoryImpl implements PostRepository {
                 post.setPostContent(rs.getString(5));
                 post.setPostRegister(rs.getString(6));
                 post.setPostUpdate(rs.getString(7));
-                post.setPostTag(rs.getString(8));
+                post.setPostView(rs.getInt(8));
+                post.setPostLike(rs.getInt(9));
+                post.setCategorySeq(rs.getLong(10));
 
                 return post;
         };
@@ -103,8 +113,7 @@ public class PostRepositoryImpl implements PostRepository {
         if (countPost == 0) {
             return 0L;
         }
-        String sql = "select * from post order by post_seq desc limit 1";
-        Post post = templates.queryForObject(sql, postRowMapper());
-        return post.getPostSeq();
+        String sql = "select post_seq from post order by post_seq desc limit 1";
+        return templates.queryForObject(sql, Long.class);
     }
 }

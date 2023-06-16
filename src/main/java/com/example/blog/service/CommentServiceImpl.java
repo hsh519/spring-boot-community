@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,6 +22,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void comment(Comment comment, Member member) {
         setMemberInfo(comment, member);
+        setRegisterAndUpdateDate(comment);
         commentRepository.save(comment);
     }
 
@@ -32,5 +35,13 @@ public class CommentServiceImpl implements CommentService {
     private void setMemberInfo(Comment comment, Member member) {
         comment.setMemberSeq(member.getMemberSeq());
         comment.setComment_writer(member.getMemberName());
+    }
+
+    private static void setRegisterAndUpdateDate(Comment comment) {
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
+        comment.setComment_register(date);
+        comment.setComment_update(date);
     }
 }

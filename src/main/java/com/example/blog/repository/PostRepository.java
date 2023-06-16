@@ -11,11 +11,14 @@ public interface PostRepository {
 
     List<Post> postAll();
 
-    Post findBySeq(Long postSeq);
+    void postViewPlus(Long postSeq);
 
     List<Post> findByCategory(Long categorySeq);
 
-    void update(PostForm postForm, Long postSeq);
+    Post findBySeq(Long postSeq);
+
+    void update(Post post, Long postSeq);
 
     void delete(Long postSeq);
+
 }

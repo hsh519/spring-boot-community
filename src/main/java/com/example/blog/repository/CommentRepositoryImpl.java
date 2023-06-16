@@ -1,6 +1,7 @@
 package com.example.blog.repository;
 
 import com.example.blog.domain.Comment;
+import com.example.blog.domain.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,23 +16,19 @@ import java.util.List;
 @Slf4j
 public class CommentRepositoryImpl implements CommentRepository {
 
-    private JdbcTemplate template;
+    private JdbcTemplate templates;
 
     public CommentRepositoryImpl(DataSource dataSource) {
-        this.template = new JdbcTemplate(dataSource);
+        this.templates = new JdbcTemplate(dataSource);
     }
 
     @Override
     public void save(Comment comment) {
-        comment.setCommentSeq(4L);
-        String date = getDateToString();
-        comment.setComment_register(date);
-        comment.setComment_update(date);
-
+        comment.setCommentSeq(getLastPCommentSeq()+1);
         log.info("comment = {}", comment.toString());
 
         String sql = "insert into comment values(?,?,?,?,?,?,?)";
-        template.update(
+        templates.update(
                 sql, comment.getCommentSeq(), comment.getPostSeq(), comment.getMemberSeq(),
                 comment.getComment_content(), comment.getComment_writer(),
                 comment.getComment_register(), comment.getComment_update());
@@ -40,14 +37,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     @Override
     public List<Comment> findAll(Long postSeq) {
         String sql = "select comment_content, comment_writer, comment_update from comment where post_seq = ?";
-        return template.query(sql, commentAllRowMapper(), postSeq);
-    }
-
-    private static String getDateToString() {
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String date = simpleDateFormat.format(new Date());
-        return date;
+        return templates.query(sql, commentAllRowMapper(), postSeq);
     }
 
     private RowMapper<Comment> commentAllRowMapper() {
@@ -58,5 +48,14 @@ public class CommentRepositoryImpl implements CommentRepository {
             comment.setComment_update(rs.getString(3));
             return comment;
         };
+    }
+
+    private Long getLastPCommentSeq() {
+        Integer countComment = templates.queryForObject("select count(*) from comment", Integer.class);
+        if (countComment == 0) {
+            return 0L;
+        }
+        String sql = "select comment_seq from comment order by comment_seq desc limit 1";
+        return templates.queryForObject(sql, Long.class);
     }
 }

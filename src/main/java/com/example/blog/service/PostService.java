@@ -14,9 +14,10 @@ public interface PostService {
 
     List<Post> getPostListInCategory(Long categorySeq);
 
-    Post getPost(Long postSeq);
+    Post getPost(Long postSeq, Boolean isPostViewPlus);
 
-    void updatePost(PostForm postForm, Long postSeq);
+    void updatePost(Post post, Long postSeq);
 
     void deletePost(Long postSeq);
+
 }

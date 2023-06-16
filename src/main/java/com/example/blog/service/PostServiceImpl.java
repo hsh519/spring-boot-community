@@ -32,7 +32,6 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    @Transactional
     public List<Post> getPostList() {
         return postRepository.postAll();
     }
@@ -43,19 +42,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    @Transactional
-    public Post getPost(Long postSeq) {
+    public Post getPost(Long postSeq, Boolean callUpdate) {
+        if (callUpdate) {
+            postRepository.postViewPlus(postSeq);
+        }
         return postRepository.findBySeq(postSeq);
     }
 
+
     @Override
-    @Transactional
-    public void updatePost(PostForm postForm, Long postSeq) {
-        postRepository.update(postForm, postSeq);
+    public void updatePost(Post post, Long postSeq) {
+        postRepository.update(post, postSeq);
     }
 
     @Override
-    @Transactional
     public void deletePost(Long postSeq) {
         postRepository.delete(postSeq);
     }

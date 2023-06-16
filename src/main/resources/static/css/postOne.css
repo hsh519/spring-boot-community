@@ -105,6 +105,7 @@ main {
 .main {
     display: flex;
     margin-top: 30px;
+    border-bottom: none;
 }
 .main .left-section {
     flex: 1 1 75%;
@@ -133,6 +134,30 @@ main {
     border-top: 1px solid #A1A1A1;
     font-size: 18px;
 }
+.main .left-section .comment-writer {
+    font-weight: bold;
+}
+.main .left-section .comment-content {
+    display: block;
+}
+.main .left-section .comment-update-date {
+    font-weight: lighter;
+    font-size: 12px;
+}
+.main .left-section .comment-box {
+    width: 600px;
+    height: 70px;
+    display: block;
+}
+.main .left-section button {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #FFFFFF;
+    padding: 10px 14px;
+    background-color: #687698;
+    border: 1px solid #FFFFFF;
+    text-decoration: none;
+}
 .main .right-section {
     flex: 1 1 25%;
     padding: 40px 50px;
@@ -159,6 +184,14 @@ main {
 .main .right-section div i {
     margin-right: 10px;
     font-weight: lighter;
+}
+.main .right-section div .heart-button {
+    border: none;
+    outline: none;
+    background-color: #FFFFFF;
+}
+.main .right-section div .fill {
+    font-weight: bold;
 }
 .main .right-section div span {
     font-weight: lighter;
