@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="postList" th:each="post : ${postList}">
+  <div class="post-title-writer">
+    <a th:href="'/postList/' + ${post.postSeq}" class="post-title" th:text="${post.postName}">title</a>
+    <span class="post-writer" th:text="${post.postWriter}">writer</span>
+  </div>
+  <div class="post-show-comment-like">
+    <span class="show">[[${post.postView}]]</span>
+    <span class="comment">0</span>
+    <span class="like">0</span>
+  </div>
+  <div class="post-recent-activity">
+    <span th:text="${post.postUpdate}">2023-06-02</span>
+  </div>
+</div>
+</body>
+</html>

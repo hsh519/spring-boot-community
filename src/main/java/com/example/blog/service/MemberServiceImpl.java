@@ -1,9 +1,12 @@
 package com.example.blog.service;
 
 import com.example.blog.domain.Member;
+import com.example.blog.domain.Post;
 import com.example.blog.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -15,14 +18,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    @Transactional
     public void register(Member member) {
         memberRepository.save(member);
     }
 
     @Override
-    @Transactional
     public Member login(Member member) {
         return memberRepository.findById(member.getMemberId());
+    }
+
+    @Override
+    public List<Post> myPost(Member member) {
+        return memberRepository.getMyPost(member.getMemberSeq());
     }
 }

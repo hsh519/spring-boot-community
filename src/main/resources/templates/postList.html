@@ -60,8 +60,8 @@
             </div>
             <div class="post-show-comment-like">
                 <span class="show">[[${post.postView}]]</span>
-                <span class="comment">0</span>
-                <span class="like">0</span>
+                <span class="comment">[[${post.postComment}]]</span>
+                <span class="like">[[${post.postLike}]]</span>
             </div>
             <div class="post-recent-activity">
                 <span th:text="${post.postUpdate}">2023-06-02</span>

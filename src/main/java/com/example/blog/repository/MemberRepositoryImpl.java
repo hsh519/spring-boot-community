@@ -1,15 +1,15 @@
 package com.example.blog.repository;
 
 import com.example.blog.domain.Member;
+import com.example.blog.domain.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.util.List;
 
 @Repository
 @Slf4j
@@ -47,6 +47,26 @@ public class MemberRepositoryImpl implements MemberRepository {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public List<Post> getMyPost(Long memberId) {
+        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post where member_seq = ?";
+        return template.query(sql, postAllMapper(), memberId);
+    }
+
+    private RowMapper<Post> postAllMapper() {
+        return (rs, rowNum) -> {
+            Post post = new Post();
+            post.setPostSeq(rs.getLong(1));
+            post.setPostName(rs.getString(2));
+            post.setPostWriter(rs.getString(3));
+            post.setPostUpdate(rs.getString(4));
+            post.setPostView(rs.getInt(5));
+            post.setPostLike(rs.getInt(6));
+
+            return post;
+        };
     }
 
     private RowMapper<Member> memberRowMapper() {

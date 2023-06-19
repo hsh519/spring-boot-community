@@ -119,47 +119,47 @@ main {
 }
 
 .main .categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     padding: 0 20px;
 }
 
-.main .categories .category {
-    display: flex;
-    margin-bottom: 60px;
+.main-section .main .categories li {
+    flex: 1 1 50%;
+    list-style: none;
+    margin-bottom: 10px;
 }
 
-.main .categories .left-section {
-    flex: 1 1 10%;
+.main-section .main .categories li .category {
+    padding-bottom: 20px;
+    width: 200px;
+    height: 240px;
+    margin: 0 auto;
+    background-color: #A1A1A1;
+    border-radius: 4px;
 }
 
-.main .categories .left-section img {
-    width: 100px;
-    height: 60px;
-}
-
-.main .categories .right-section {
-    flex: 1 1 90%;
-    padding-left: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-.main .categories .right-section .category-title {
-    margin-top: 4px;
+.main .categories .category-title {
+    display: block;
     font-size: 22px;
-    margin-bottom: 4px;
     text-decoration: none;
     color: #000000;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-.main .categories .right-section .category-content {
+.main .categories li .category:hover {
+    transition-property: width, height, font-size;
+    transition-duration: 1s;
+    width: 210px;
+    height: 250px;
+    font-size: 20px;
+}
+
+.main .categories .category-content {
     font-weight: lighter;
-}
-
-.main .categories .right-section .category-pin {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 .error {

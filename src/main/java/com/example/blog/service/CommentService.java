@@ -10,4 +10,6 @@ public interface CommentService {
     void comment(Comment comment, Member member);
 
     List<Comment> getCommentList(Long postSeq);
+
+    Integer getCommentCnt(Long postSeq);
 }

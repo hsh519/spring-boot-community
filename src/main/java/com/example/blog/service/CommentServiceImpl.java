@@ -27,9 +27,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
     public List<Comment> getCommentList(Long postSeq) {
         return commentRepository.findAll(postSeq);
+    }
+
+    @Override
+    public Integer getCommentCnt(Long postSeq) {
+        return commentRepository.commentCount(postSeq);
     }
 
     private void setMemberInfo(Comment comment, Member member) {

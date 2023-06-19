@@ -43,6 +43,8 @@ public class Post {
 
     private int postLike;
 
+    private int postComment;
+
     public Post(Long categorySeq, String postName, String postContent) {
         this.categorySeq = categorySeq;
         this.postName = postName;

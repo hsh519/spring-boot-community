@@ -27,7 +27,9 @@
             <li class="section-header-menu">
               <a th:href="'/postList'">All Posts</a>
             </li>
-            <li class="section-header-menu">My Posts</li>
+            <li class="section-header-menu">
+              <a th:href="'/myPage'">My Posts</a>
+            </li>
           </ul>
           <div class="right-section">
             <input class="search" type="text" placeholder="Search" />
@@ -40,19 +42,16 @@
           <a class="create-post-button" th:href="'/post'">Create new Post</a>
         </div>
         <ul class="categories">
-          <li class="category" th:each="category : ${categories}">
-            <div class="left-section">
-              <img src="/assets/img/test.png" alt="이미지 자리">
-            </div>
-            <div class="right-section">
-              <div class="category-description">
-                <a class="category-title" th:href="'category/' + ${category.categorySeq}" th:text="${category.categoryName}">category title</a>
-                <p class="category-content" th:text="${category.categoryContent}">category content</p>
+          <li th:each="category : ${categories}">
+              <div class="category">
+                <div style="margin-bottom: 30px;">
+                  <i class="fa-solid fa-bookmark" style="font-size: 60px;"></i>
+                </div>
+                <div class="category-description">
+                  <a class="category-title" th:href="'category/' + ${category.categorySeq}" th:text="${category.categoryName}">category title</a>
+                  <p class="category-content" th:text="${category.categoryContent}">category content</p>
+                </div>
               </div>
-              <div class="category-pin">
-                <i class="fa-solid fa-thumbtack pin"></i>
-              </div>
-            </div>
           </li>
         </ul>
       </div>

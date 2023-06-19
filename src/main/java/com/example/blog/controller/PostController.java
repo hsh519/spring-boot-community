@@ -54,6 +54,12 @@ public class PostController {
     @GetMapping("/postList")
     public String postList(Model model) {
         List<Post> postList = postService.getPostList();
+        for (Post post : postList) {
+            Integer likeCnt = likesService.countLikes(post.getPostSeq());
+            Integer commentCnt = commentService.getCommentCnt(post.getPostSeq());
+            post.setPostLike(likeCnt);
+            post.setPostComment(commentCnt);
+        }
         model.addAttribute("postList", postList);
         return "postList";
     }
@@ -80,7 +86,6 @@ public class PostController {
 
         List<Comment> commentList = commentService.getCommentList(postSeq);
 
-        log.info("isLike={}", loginMemberLike);
         model.addAttribute("isLike", loginMemberLike);
         model.addAttribute("likeCnt", likesService.countLikes(postSeq));
         model.addAttribute("commentCnt", commentList.size());

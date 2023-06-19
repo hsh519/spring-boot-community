@@ -40,6 +40,12 @@ public class CommentRepositoryImpl implements CommentRepository {
         return templates.query(sql, commentAllRowMapper(), postSeq);
     }
 
+    @Override
+    public Integer commentCount(Long postSeq) {
+        String sql = "select count(*) from comment where post_seq = ?";
+        return templates.queryForObject(sql, Integer.class, postSeq);
+    }
+
     private RowMapper<Comment> commentAllRowMapper() {
         return (rs, rowNum) -> {
             Comment comment = new Comment();
