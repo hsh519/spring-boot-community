@@ -22,6 +22,7 @@ public class HomeController {
     public String home(Model model) {
         List<Category> categoryList = categoryService.getCategoryList();
         model.addAttribute("categories", categoryList);
+        model.addAttribute("searchKeyword", "");
         return "index";
     }
 

@@ -25,18 +25,18 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public void save(Post post) {
         Long postSeq = getLastPostSeq() + 1;
-        String sql = "insert into post values(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into post values(?,?,?,?,?,?,?,?,?,?,?)";
         templates.update(
                 sql, postSeq, post.getMemberSeq(), post.getPostName(),
                 post.getPostWriter(), post.getPostContent(), post.getPostRegister(),
-                post.getPostUpdate(), 0, 0, post.getCategorySeq()
+                post.getPostUpdate(), 0, 0, post.getCategorySeq(), 0
         );
     }
 
     @Override
-    public List<Post> postAll() {
-        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post";
-        return templates.query(sql, postAllRowMapper());
+    public List<Post> postAll(Long startSeq, Long pageCnt) {
+        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post order by post_seq desc limit ? offset ?";
+        return templates.query(sql, postAllRowMapper(), pageCnt, startSeq);
     }
 
     @Override
@@ -67,6 +67,18 @@ public class PostRepositoryImpl implements PostRepository {
     public void delete(Long postSeq) {
         String sql = "delete from post where post_seq = ?";
         templates.update(sql, postSeq);
+    }
+
+    @Override
+    public Integer postCnt() {
+        String sql = "select count(*) from post";
+        return templates.queryForObject(sql, Integer.class);
+    }
+
+    @Override
+    public List<Post> findBySearch(String searchKeyword) {
+        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post where post_name like ?";
+        return templates.query(sql, postAllRowMapper(), "%"+searchKeyword+"%");
     }
 
     private RowMapper<Post> postAllRowMapper() {

@@ -25,14 +25,18 @@
           <ul class="left-section">
             <li class="section-header-menu">Categories</li>
             <li class="section-header-menu">
-              <a th:href="'/postList'">All Posts</a>
+              <a th:href="'/postList/1'">All Posts</a>
             </li>
             <li class="section-header-menu">
               <a th:href="'/myPage'">My Posts</a>
             </li>
           </ul>
           <div class="right-section">
-            <input class="search" type="text" placeholder="Search" />
+            <form th:action="'/postList/search'" method="get">
+              <input class="search" type="text" placeholder="Search" name="searchKeyword" />
+              <button type="submit">검색</button>
+            </form>
+
             <a class="account-button" th:href="'/login'" />Login / Sign up</a>
           </div>
         </div>

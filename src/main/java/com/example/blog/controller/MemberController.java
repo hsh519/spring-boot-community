@@ -63,13 +63,14 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String loginForm(Model model) {
+    public String loginForm(Model model,  @RequestParam("requestURI") String requestURI) {
         model.addAttribute("memberLoginForm", new MemberLoginForm());
+        model.addAttribute("requestURI", requestURI);
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@Validated @ModelAttribute MemberLoginForm memberLoginForm, BindingResult bindingResult, Model model, HttpServletRequest request) {
+    public String login(@Validated @ModelAttribute MemberLoginForm memberLoginForm, BindingResult bindingResult, @RequestParam("requestURI") String requestURI, Model model, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("memberLoginForm", memberLoginForm);
             return "login";
@@ -89,7 +90,7 @@ public class MemberController {
         }
         HttpSession session = request.getSession();
         session.setAttribute("loginMember", loginMember);
-        return "redirect:/";
+        return "redirect:" + requestURI;
     }
 
     @GetMapping("/logout")

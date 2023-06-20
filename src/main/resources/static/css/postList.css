@@ -69,3 +69,15 @@
     padding-left: 55px;
     font-weight: lighter;
 }
+
+.main-section .pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.main-section .pagination a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 5px;
+    color: #687698;
+}

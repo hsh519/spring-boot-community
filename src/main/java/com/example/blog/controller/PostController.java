@@ -51,9 +51,21 @@ public class PostController {
         return "redirect:/";
     }
 
-    @GetMapping("/postList")
-    public String postList(Model model) {
-        List<Post> postList = postService.getPostList();
+    @GetMapping("/postList/{pageNumber}")
+    public String postList(Model model, @PathVariable int pageNumber) {
+        Long pageCnt = 5L;
+        Long startSeq =  (pageNumber-1) * pageCnt;
+        Integer allPostCnt = postService.getPostCnt();
+        int endPage;
+        if (allPostCnt % 5 == 0) {
+            endPage = allPostCnt / 5;
+        } else {
+            endPage = (int) ((double) allPostCnt / 5) + 1;
+        }
+
+        Boolean prevPage = (pageNumber == 1) ? false : true;
+        Boolean nextPage = (pageNumber == endPage) ? false : true;
+        List<Post> postList = postService.getPostList(startSeq, pageCnt);
         for (Post post : postList) {
             Integer likeCnt = likesService.countLikes(post.getPostSeq());
             Integer commentCnt = commentService.getCommentCnt(post.getPostSeq());
@@ -61,10 +73,29 @@ public class PostController {
             post.setPostComment(commentCnt);
         }
         model.addAttribute("postList", postList);
+        model.addAttribute("curPage", pageNumber);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("endPage", endPage);
         return "postList";
     }
 
-    @GetMapping("/postList/{postSeq}")
+    @GetMapping("/postList/search")
+    public String getSearchPost(@RequestParam("searchKeyword") String searchKeyword, Model model) {
+        log.info("searchKeyword={}", searchKeyword);
+        List<Post> searchPost = postService.search(searchKeyword);
+        for (Post post : searchPost) {
+            Integer likeCnt = likesService.countLikes(post.getPostSeq());
+            Integer commentCnt = commentService.getCommentCnt(post.getPostSeq());
+            post.setPostLike(likeCnt);
+            post.setPostComment(commentCnt);
+        }
+        model.addAttribute("postList", searchPost);
+
+        return "searchPost";
+    }
+
+    @GetMapping("/post/{postSeq}")
     public String getPost(@PathVariable Long postSeq, Model model, HttpServletRequest request) {
         Boolean loginMemberLike = false;
         HttpSession session = request.getSession(false);

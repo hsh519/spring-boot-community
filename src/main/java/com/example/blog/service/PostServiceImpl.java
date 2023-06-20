@@ -32,8 +32,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostList() {
-        return postRepository.postAll();
+    public List<Post> getPostList(Long startSeq, Long pageCnt) {
+        return postRepository.postAll(startSeq, pageCnt);
     }
 
     @Override
@@ -58,6 +58,16 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePost(Long postSeq) {
         postRepository.delete(postSeq);
+    }
+
+    @Override
+    public Integer getPostCnt() {
+        return postRepository.postCnt();
+    }
+
+    @Override
+    public List<Post> search(String searchKeyword) {
+        return postRepository.findBySearch(searchKeyword);
     }
 
     private static String getDateToString() {

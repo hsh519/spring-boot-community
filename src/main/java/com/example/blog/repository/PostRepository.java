@@ -9,7 +9,7 @@ public interface PostRepository {
 
     void save(Post post);
 
-    List<Post> postAll();
+    List<Post> postAll(Long startSeq, Long pageCnt);
 
     void postViewPlus(Long postSeq);
 
@@ -20,5 +20,9 @@ public interface PostRepository {
     void update(Post post, Long postSeq);
 
     void delete(Long postSeq);
+
+    Integer postCnt();
+
+    List<Post> findBySearch(String searchKeyword);
 
 }

@@ -55,7 +55,7 @@
 
         <div class="postList" th:each="post : ${postList}">
             <div class="post-title-writer">
-                <a th:href="'/postList/' + ${post.postSeq}" class="post-title" th:text="${post.postName}">title</a>
+                <a th:href="'/post/' + ${post.postSeq}" class="post-title" th:text="${post.postName}">title</a>
                 <span class="post-writer" th:text="${post.postWriter}">writer</span>
             </div>
             <div class="post-show-comment-like">
@@ -66,6 +66,16 @@
             <div class="post-recent-activity">
                 <span th:text="${post.postUpdate}">2023-06-02</span>
             </div>
+        </div>
+        <div class="pagination">
+            <a th:if="${prevPage == true}" th:href="'/postList/'+(${curPage}-1)" style="color:#A1A1A1; text-decoration: none;">&langle;</a>
+            <span th:if="${curPage+4 <= endPage}" th:each="pageNumber : ${#numbers.sequence(curPage, curPage+4)}">
+            <a th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>
+            </span>
+            <span th:if="${curPage+4 > endPage}" th:each="pageNumber : ${#numbers.sequence(curPage - (endPage - (endPage - curPage) - (endPage - 4)), endPage)}">
+            <a th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>
+            </span>
+            <a th:if="${nextPage == true}" th:href="'/postList/'+(${curPage}+1)" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>
         </div>
     </section>
 </main>

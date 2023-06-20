@@ -10,7 +10,7 @@ public interface PostService {
 
     void post(Post post, Member member);
 
-    List<Post> getPostList();
+    List<Post> getPostList(Long startSeq, Long pageCnt);
 
     List<Post> getPostListInCategory(Long categorySeq);
 
@@ -19,5 +19,9 @@ public interface PostService {
     void updatePost(Post post, Long postSeq);
 
     void deletePost(Long postSeq);
+
+    Integer getPostCnt();
+
+    List<Post> search(String searchKeyword);
 
 }
