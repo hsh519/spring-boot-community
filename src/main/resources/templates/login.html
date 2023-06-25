@@ -9,14 +9,13 @@
 <body>
 <header>
   <div class="header-wrapper">
-    <div class="header-title">Hong Communicate</div>
+    <div class="header-title">Communicate</div>
   </div>
 </header>
 
 <main>
   <section class="login-section">
-    <form th:action="'/login'" th:object="${memberLoginForm}" method="post">
-      <input type="hidden" name="requestURI" th:value="${requestURI}">
+    <form action="" th:object="${memberLoginForm}" method="post">
       <input class="id-box" type="email" th:field="*{memberId}" placeholder="아이디">
       <p class="error" th:errors="*{memberId}"></p>
       <input class="password-box" type="password" th:field="*{memberPw}" placeholder="패스워드">

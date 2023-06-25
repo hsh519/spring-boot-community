@@ -3,11 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
-    background-color: #F9DFBF;
+    background-color: #202124;
+    color: #FFFFFF;
 }
-
 header {
     margin-bottom: 100px;
 }
@@ -25,6 +24,25 @@ header {
     font-weight: bold;
     letter-spacing: 4px;
     font-style: italic;
+}
+.header-wrapper ul {
+    display: flex;
+    justify-content: space-between;
+}
+.header-wrapper ul li {
+    list-style: none;
+}
+
+.header-wrapper ul li a {
+    padding: 0 10px;
+    font-size: 17px;
+    text-decoration: none;
+    border-right: 1px solid #A3A3A3;
+    color: #FFFFFF;
+}
+
+.header-wrapper ul li:last-child a {
+    border-right: none;
 }
 
 main {
@@ -50,41 +68,14 @@ main {
 .main-section {
     width: 1000px;
     margin: 0 auto;
-    padding: 20px 30px;
+    padding: 0 30px;
+    padding-bottom: 30px;
+    border: 1px solid #A3A3A3;
     background-color: #FFFFFF;
 }
 
-.main-section .header {
-    border-bottom: 1px solid #A1A1A1;
-}
-
 .main-section .header .section-header-wrapper {
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 20px;
-}
-
-.main-section .header .section-header-wrapper .left-section {
-    width: 333px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.main-section .header .section-header-wrapper .left-section .section-header-menu {
-    list-style: none;
-    font-size: 18px;
-}
-
-.main-section .header .section-header-wrapper .left-section .section-header-menu a {
-    text-decoration: none;
-    color: #000000;
-}
-
-.main-section .header .section-header-wrapper .right-section {
-    width: 350px;
-    display: flex;
-    justify-content: space-between;
 }
 
 .main-section .header .section-header-wrapper .right-section .search {
@@ -93,29 +84,28 @@ main {
     padding: 10px 14px;
 }
 
-.main-section .header .section-header-wrapper .right-section .account-button {
-    margin-left: 10px;
-    font-size: 15px;
-    color: #687698;
-    padding: 10px 14px;
-    background-color: #FFFFFF;
-    border: 1px solid #687698;
-    text-decoration: none;
-}
-
-.main .button-section {
-    padding-top: 20px;
-    margin-bottom: 40px;
-    text-align: end;
-}
-
-.main .button-section .create-post-button {
+.main-section .header .section-header-wrapper .right-section button {
     font-size: 15px;
     color: #FFFFFF;
     padding: 10px 14px;
     background-color: #687698;
-    border: 1px solid #FFFFFF;
+    border: 1px solid #687698;
+}
+
+.button-section {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0px;
+}
+
+.button-section .create-post-button {
+    font-size: 15px;
+    color: #FFFFFF;
+    padding: 10px 14px;
+    background-color: #687698;
+    border: 1px solid #687698;
     text-decoration: none;
+    border-radius: 4px;
 }
 
 .main .categories {
@@ -126,17 +116,11 @@ main {
 }
 
 .main-section .main .categories li {
+    padding: 5px;
+    margin: 5px;
     list-style: none;
-    margin-bottom: 10px;
-}
-
-.main-section .main .categories li .category {
-    padding-bottom: 20px;
-    width: 200px;
-    height: 240px;
-    margin: 0 auto;
-    background-color: #A1A1A1;
-    border-radius: 4px;
+    width: 40%;
+    border: 1px solid #687698;
 }
 
 .main .categories .category-title {
@@ -144,15 +128,14 @@ main {
     font-size: 22px;
     text-decoration: none;
     color: #000000;
-    margin-bottom: 10px;
     text-align: center;
 }
 
 .main .categories li .category:hover {
     transition-property: width, height, font-size;
     transition-duration: 1s;
-    width: 210px;
-    height: 250px;
+    width: 290px;
+    height: 230px;
     font-size: 20px;
 }
 

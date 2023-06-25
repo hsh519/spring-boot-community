@@ -11,6 +11,23 @@
 <header>
     <div class="header-wrapper">
         <div class="header-title">Communicate</div>
+        <ul>
+            <li>
+                <a th:href="'/login'" />로그인</a>
+            </li>
+            <li>
+                <a th:href="'/register'" />회원가입</a>
+            </li>
+            <li>
+                <a th:href="'/'" />카테고리</a>
+            </li>
+            <li>
+                <a th:href="'/postList/1'">모든 글</a>
+            </li>
+            <li>
+                <a th:href="'/myPage/1'">내가 쓴 글</a>
+            </li>
+        </ul>
     </div>
 </header>
 
@@ -23,57 +40,44 @@
     <section class="main-section">
         <div class="header">
             <div class="section-header-wrapper">
-                <ul class="left-section">
-                    <li class="section-header-menu">Categories</li>
-                    <li class="section-header-menu">
-                        <a th:href="'/postList'">All Posts</a>
-                    </li>
-                    <li class="section-header-menu">My Posts</li>
-                </ul>
-                <div class="right-section">
-                    <input class="search" type="text" placeholder="Search" />
-                    <a class="account-button" th:href="'/login'" />Login / Sign up</a>
-                </div>
+                  <div class="right-section">
+                      <div class="button-section">
+                          <a class="create-post-button" th:href="'/post'">
+                              <i class="fa-solid fa-pen-nib" style="margin-right: 10px;"></i>글 쓰기
+                          </a>
+                      </div>
+                      <form th:action="'/postList/search'" method="get">
+                          <input class="search" type="text" placeholder="Search" name="searchKeyword" />
+                          <button type="submit">검색</button>
+                      </form>
+                  </div>
             </div>
         </div>
         <div class="main">
-            <div class="button-section">
-                <a class="create-post-button" th:href="'/post'">Create new Post</a>
-            </div>
         </div>
         <div class="postList-header">
-            <div class="blank"></div>
-            <div class="show-comment-like">
-                <i class="fa-solid fa-eye"></i>
-                <i class="fa-solid fa-comment"></i>
-                <i class="fa-solid fa-heart"></i>
-            </div>
-            <div class="recent-activity">
-                <span>recent activity</span>
-            </div>
+            <div class="header no">번호</div>
+            <div class="header title">제목</div>
+            <div class="header writer">작성자</div>
+            <div class="header regDate">작성</div>
         </div>
 
-        <div class="postList" th:each="post : ${postList}">
-            <div class="post-title-writer">
-                <a th:href="'/post/' + ${post.postSeq}" class="post-title" th:text="${post.postName}">title</a>
-                <span class="post-writer" th:text="${post.postWriter}">writer</span>
-            </div>
-            <div class="post-show-comment-like">
-                <span class="show">[[${post.postView}]]</span>
-                <span class="comment">[[${post.postComment}]]</span>
-                <span class="like">[[${post.postLike}]]</span>
-            </div>
-            <div class="post-recent-activity">
-                <span th:text="${post.postUpdate}">2023-06-02</span>
-            </div>
+        <div class="postList" th:each="post, postIndex : ${postList}">
+            <span class="no" th:text="(${curPage}-1) * 5 + ${postIndex.count}">1</span>
+            <a class="title" th:href="'/post/' + ${post.postSeq}" th:text="${post.postName}">title</a>
+            <span class="writer" th:text="${post.postWriter}">writer</span>
+            <span class="regDate" th:text="${post.postUpdate}">2023-06-02</span>
         </div>
+
         <div class="pagination">
             <a th:if="${prevPage == true}" th:href="'/postList/'+(${curPage}-1)" style="color:#A1A1A1; text-decoration: none;">&langle;</a>
             <span th:if="${curPage+4 <= endPage}" th:each="pageNumber : ${#numbers.sequence(curPage, curPage+4)}">
-            <a th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>
+            <a th:if="${pageNumber} == ${curPage}" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>
+            <a th:if="${pageNumber} != ${curPage}" th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>
             </span>
             <span th:if="${curPage+4 > endPage}" th:each="pageNumber : ${#numbers.sequence(curPage - (endPage - (endPage - curPage) - (endPage - 4)), endPage)}">
-            <a th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>
+            <a th:if="${pageNumber} == ${curPage}" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>
+            <a th:if="${pageNumber} != ${curPage}" th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>
             </span>
             <a th:if="${nextPage == true}" th:href="'/postList/'+(${curPage}+1)" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>
         </div>

@@ -10,6 +10,23 @@
   <header>
     <div class="header-wrapper">
       <div class="header-title">Communicate</div>
+      <ul>
+        <li>
+          <a th:href="'/login'" />로그인</a>
+        </li>
+        <li>
+          <a th:href="'/register'" />회원가입</a>
+        </li>
+        <li>
+          <a th:href="'/'" />카테고리</a>
+        </li>
+        <li>
+          <a th:href="'/postList/1'">모든 글</a>
+        </li>
+        <li>
+          <a th:href="'/myPage'">내가 쓴 글</a>
+        </li>
+      </ul>
     </div>
   </header>
 
@@ -20,42 +37,15 @@
     </div>
 
     <section class="main-section">
-      <div class="header">
-        <div class="section-header-wrapper">
-          <ul class="left-section">
-            <li class="section-header-menu">Categories</li>
-            <li class="section-header-menu">
-              <a th:href="'/postList/1'">All Posts</a>
-            </li>
-            <li class="section-header-menu">
-              <a th:href="'/myPage'">My Posts</a>
-            </li>
-          </ul>
-          <div class="right-section">
-            <form th:action="'/postList/search'" method="get">
-              <input class="search" type="text" placeholder="Search" name="searchKeyword" />
-              <button type="submit">검색</button>
-            </form>
-
-            <a class="account-button" th:href="'/login'" />Login / Sign up</a>
-          </div>
-        </div>
-      </div>
       <div class="main">
         <div class="button-section">
-          <a class="create-post-button" th:href="'/post'">Create new Post</a>
+          <a class="create-post-button" th:href="'/post'">
+            <i class="fa-solid fa-pen-nib" style="margin-right: 10px;"></i>글 쓰기
+          </a>
         </div>
         <ul class="categories">
           <li th:each="category : ${categories}">
-              <div class="category">
-                <div style="margin-bottom: 30px;">
-                  <i class="fa-solid fa-bookmark" style="font-size: 60px;"></i>
-                </div>
-                <div class="category-description">
-                  <a class="category-title" th:href="'category/' + ${category.categorySeq}" th:text="${category.categoryName}">category title</a>
-                  <p class="category-content" th:text="${category.categoryContent}">category content</p>
-                </div>
-              </div>
+            <a class="category-title" th:href="'category/' + ${category.categorySeq}" th:text="${category.categoryName}">category title</a>
           </li>
         </ul>
       </div>

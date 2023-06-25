@@ -5,7 +5,8 @@
 }
 
 body {
-    background-color: #F9DFBF;
+    background-color: #202124;
+    color: #FFFFFF;
 }
 
 header {
@@ -35,6 +36,7 @@ header {
     display: flex;
     justify-content: center;
     padding: 40px 0px;
+    border-radius: 4px;
 }
 
 .register-section input {

@@ -1,73 +1,53 @@
-.main {
-    border-bottom: 1px solid #A1A1A1;
-}
-
-.main .button-section {
-    margin-bottom: 20px;
+.main-section {
+    padding-top: 30px;
 }
 
 .main-section .postList-header {
     display: flex;
     padding: 10px 0;
-    border-bottom: 1px solid #A1A1A1;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #D3D3D3;
+    color: #000000;
+    font-weight: bold;
+    background-color: #FAFAFA;
 }
 
-.main-section .postList-header .blank {
-    flex: 1 1 50%;
-}
-
-.main-section .postList-header .show-comment-like {
+.no {
     flex: 1 1 10%;
-    display: flex;
-    justify-content: space-between;
 }
 
-.main-section .postList-header .recent-activity {
+.title {
+    flex: 1 1 60%;
+}
+
+.writer {
+    flex: 1 1 10%;
+}
+
+.regDate {
     flex: 1 1 20%;
-    padding-left: 50px;
+}
+
+.main-section .postList-header .header {
+    text-align: center;
 }
 
 .main-section .postList {
     display: flex;
-    align-items: center;
     padding: 10px 0px;
-    margin: 0px 20px;
-    border-bottom: 1px solid #A1A1A1;
+    border-bottom: 1px solid #D3D3D3;
+    color: #000000;
+    text-align: center;
+    font-weight: lighter;
 }
 
-.main-section .postList .post-title-writer {
-    flex: 1 1 50%;
-}
-
-.main-section .postList .post-title-writer .post-title {
-    display: block;
-    font-size: 20px;
+.main-section .postList .title {
     text-decoration: none;
     color: #000000;
 }
 
-.main-section .postList .post-title-writer .post-writer {
-    display: block;
-    font-size: 12px;
-    font-weight: lighter;
-}
-
-.main-section .postList .post-show-comment-like {
-    flex: 1 1 10%;
-    display: flex;
-    justify-content: space-between;
-    margin-left: 12px;
-}
-
-.main-section .postList .post-show-comment-like span {
-    font-weight: lighter;
-    font-size: 12px;
-}
-
-.main-section .postList .post-recent-activity {
-    flex: 1 1 20%;
-    padding-left: 55px;
-    font-weight: lighter;
+.postList:nth-child(8) {
+    border-bottom: 1px solid #000000;
 }
 
 .main-section .pagination {
@@ -79,5 +59,17 @@
     display: inline-block;
     text-decoration: none;
     padding: 5px;
-    color: #687698;
+    color: #000000;
+}
+
+.button-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.main-section .header .section-header-wrapper .right-section {
+    display: flex;
+    justify-content: space-between;
 }
