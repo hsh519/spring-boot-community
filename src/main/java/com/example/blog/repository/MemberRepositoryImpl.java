@@ -50,9 +50,15 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public List<Post> getMyPost(Long memberId) {
-        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post where member_seq = ?";
-        return template.query(sql, postAllMapper(), memberId);
+    public List<Post> getMyPost(Long memberId, Long startSeq, Long pageCnt) {
+        String sql = "select post_seq, post_name, post_writer, post_update from post where member_seq = ? order by post_seq desc limit ? offset ?";
+        return template.query(sql, postAllMapper(), memberId, pageCnt, startSeq);
+    }
+
+    @Override
+    public Integer myPostCnt(Long postId) {
+        String sql = "select count(*) from post where member_seq = ?";
+        return template.queryForObject(sql, Integer.class, postId);
     }
 
     private RowMapper<Post> postAllMapper() {
@@ -62,8 +68,6 @@ public class MemberRepositoryImpl implements MemberRepository {
             post.setPostName(rs.getString(2));
             post.setPostWriter(rs.getString(3));
             post.setPostUpdate(rs.getString(4));
-            post.setPostView(rs.getInt(5));
-            post.setPostLike(rs.getInt(6));
 
             return post;
         };

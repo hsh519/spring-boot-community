@@ -35,7 +35,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> postAll(Long startSeq, Long pageCnt) {
-        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post order by post_seq desc limit ? offset ?";
+        String sql = "select post_seq, post_name, post_writer, post_update from post order by post_seq desc limit ? offset ?";
         return templates.query(sql, postAllRowMapper(), pageCnt, startSeq);
     }
 
@@ -47,7 +47,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> findByCategory(Long categorySeq) {
-        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post where category_seq = ?";
+        String sql = "select post_seq, post_name, post_writer, post_update from post where category_seq = ?";
         return templates.query(sql, postAllRowMapper(), categorySeq);
     }
 
@@ -77,7 +77,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> findBySearch(String searchKeyword) {
-        String sql = "select post_seq, post_name, post_writer, post_update, post_view, post_like from post where post_name like ?";
+        String sql = "select post_seq, post_name, post_writer, post_update from post where post_name like ?";
         return templates.query(sql, postAllRowMapper(), "%"+searchKeyword+"%");
     }
 
@@ -88,8 +88,6 @@ public class PostRepositoryImpl implements PostRepository {
             post.setPostName(rs.getString(2));
             post.setPostWriter(rs.getString(3));
             post.setPostUpdate(rs.getString(4));
-            post.setPostView(rs.getInt(5));
-            post.setPostLike(rs.getInt(6));
 
             return post;
         };

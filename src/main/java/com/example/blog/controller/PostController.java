@@ -66,12 +66,7 @@ public class PostController {
         Boolean prevPage = (pageNumber == 1) ? false : true;
         Boolean nextPage = (pageNumber == endPage) ? false : true;
         List<Post> postList = postService.getPostList(startSeq, pageCnt);
-        for (Post post : postList) {
-            Integer likeCnt = likesService.countLikes(post.getPostSeq());
-            Integer commentCnt = commentService.getCommentCnt(post.getPostSeq());
-            post.setPostLike(likeCnt);
-            post.setPostComment(commentCnt);
-        }
+
         model.addAttribute("postList", postList);
         model.addAttribute("curPage", pageNumber);
         model.addAttribute("prevPage", prevPage);

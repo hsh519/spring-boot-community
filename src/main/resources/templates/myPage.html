@@ -25,7 +25,7 @@
         <a th:href="'/postList/1'">모든 글</a>
       </li>
       <li>
-        <a th:href="'/myPage'">내가 쓴 글</a>
+        <a th:href="'/myPage/1'">내가 쓴 글</a>
       </li>
     </ul>
   </div>
@@ -58,28 +58,27 @@
     <div class="postList-header">
       <div class="header no">번호</div>
       <div class="header title">제목</div>
-      <div class="header writer">작성자</div>
       <div class="header regDate">작성</div>
     </div>
 
     <div class="postList" th:each="post, postIndex : ${postList}">
-<!--      <span class="no" th:text="(${curPage}-1) * 5 + ${postIndex.count}">1</span>-->
+      <span class="no" th:text="(${curPage}-1) * 5 + ${postIndex.count}">1</span>
       <a class="title" th:href="'/post/' + ${post.postSeq}" th:text="${post.postName}">title</a>
       <span class="regDate" th:text="${post.postUpdate}">2023-06-02</span>
     </div>
 
-<!--    <div class="pagination">-->
-<!--      <a th:if="${prevPage == true}" th:href="'/postList/'+(${curPage}-1)" style="color:#A1A1A1; text-decoration: none;">&langle;</a>-->
-<!--      <span th:if="${curPage+4 <= endPage}" th:each="pageNumber : ${#numbers.sequence(curPage, curPage+4)}">-->
-<!--            <a th:if="${pageNumber} == ${curPage}" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>-->
-<!--            <a th:if="${pageNumber} != ${curPage}" th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>-->
-<!--            </span>-->
-<!--      <span th:if="${curPage+4 > endPage}" th:each="pageNumber : ${#numbers.sequence(curPage - (endPage - (endPage - curPage) - (endPage - 4)), endPage)}">-->
-<!--            <a th:if="${pageNumber} == ${curPage}" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>-->
-<!--            <a th:if="${pageNumber} != ${curPage}" th:text="${pageNumber}" th:href="'/postList/'+${pageNumber}"></a>-->
-<!--            </span>-->
-<!--      <a th:if="${nextPage == true}" th:href="'/postList/'+(${curPage}+1)" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>-->
-<!--    </div>-->
+    <div class="pagination">
+      <a th:if="${prevPage == true}" th:href="'/myPage/'+(${curPage}-1)" style="color:#A1A1A1; text-decoration: none;">&langle;</a>
+      <span th:if="${curPage+4 <= endPage}" th:each="pageNumber : ${#numbers.sequence(curPage, curPage+4)}">
+            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/myPage/'+${pageNumber}"></a>
+            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/myPage/'+${pageNumber}"></a>
+            </span>
+      <span th:if="${curPage+4 > endPage}" th:each="pageNumber : ${#numbers.sequence(curPage - (endPage - (endPage - curPage) - (endPage - 4)), endPage)}">
+            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/myPage/'+${pageNumber}"></a>
+            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/myPage/'+${pageNumber}"></a>
+            </span>
+      <a th:if="${nextPage == true}" th:href="'/myPage/'+(${curPage}+1)" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>
+    </div>
   </section>
 </main>
 

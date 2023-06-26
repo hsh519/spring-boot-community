@@ -10,5 +10,6 @@ public interface MemberRepository {
     Member save(Member member);
     Member findById(String memberId);
     Member findByName(String memberName);
-    List<Post> getMyPost(Long memberId);
+    List<Post> getMyPost(Long memberId, Long startSeq, Long pageCnt);
+    Integer myPostCnt(Long postId);
 }

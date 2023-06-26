@@ -10,5 +10,7 @@ public interface MemberService {
     void register(Member member);
     Member login(Member member);
 
-    List<Post> myPost(Member member);
+    List<Post> myPost(Member member, Long startSeq, Long pageCnt);
+
+    Integer getMyPostCnt(Long postId);
 }

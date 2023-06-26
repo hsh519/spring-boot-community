@@ -28,7 +28,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Post> myPost(Member member) {
-        return memberRepository.getMyPost(member.getMemberSeq());
+    public List<Post> myPost(Member member, Long startSeq, Long pageCnt) {
+        return memberRepository.getMyPost(member.getMemberSeq(), startSeq, pageCnt);
+    }
+
+    @Override
+    public Integer getMyPostCnt(Long postId) {
+        return memberRepository.myPostCnt(postId);
     }
 }

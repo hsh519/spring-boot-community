@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #F9DFBF;
+    background-color: #202124;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -16,15 +16,17 @@ section {
     text-align: center;
 }
 .error-wrapper i {
-    color: #FF0000;
+    color: #FFFFFF;
     font-size: 160px;
 }
 .error-wrapper p {
     font-weight: bold;
     font-size: 50px;
+    color: #FFFFFF;
 }
 .error-wrapper span {
     display: block;
     font-size: 30px;
     letter-spacing: 3px;
+    color: #FFFFFF;
 }

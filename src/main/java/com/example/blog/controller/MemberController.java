@@ -63,17 +63,22 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String loginForm(Model model,  @RequestParam("requestURI") String requestURI) {
+    public String loginForm(Model model) {
         model.addAttribute("memberLoginForm", new MemberLoginForm());
-        model.addAttribute("requestURI", requestURI);
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@Validated @ModelAttribute MemberLoginForm memberLoginForm, BindingResult bindingResult, @RequestParam("requestURI") String requestURI, Model model, HttpServletRequest request) {
+    public String login(@Validated @ModelAttribute MemberLoginForm memberLoginForm, BindingResult bindingResult, String requestURI, Model model, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("memberLoginForm", memberLoginForm);
             return "login";
+        }
+
+        requestURI = request.getParameter("requestURI");
+
+        if (requestURI == null) {
+            requestURI = "/";
         }
 
         Member member = new Member(memberLoginForm.getMemberId(), memberLoginForm.getMemberPw());
@@ -100,12 +105,32 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/myPage")
-    public String myPage(HttpServletRequest request, Model model) {
+    @GetMapping("/myPage/{pageNumber}")
+    public String myPage(HttpServletRequest request, @PathVariable int pageNumber, Model model) {
+        Long pageCnt = 5L;
+        Long startSeq =  (pageNumber-1) * pageCnt;
+        int endPage;
+
         HttpSession session = request.getSession(false);
         Member loginMember = (Member) session.getAttribute("loginMember");
-        List<Post> posts = memberService.myPost(loginMember);
+        Integer myPostCnt = memberService.getMyPostCnt(loginMember.getMemberSeq());
+
+        if (myPostCnt % 5 == 0) {
+            endPage = myPostCnt / 5;
+        } else {
+            endPage = (int) ((double) myPostCnt / 5) + 1;
+        }
+
+        Boolean prevPage = (pageNumber == 1) ? false : true;
+        Boolean nextPage = (pageNumber == endPage) ? false : true;
+
+        List<Post> posts = memberService.myPost(loginMember, startSeq, pageCnt);
+
         model.addAttribute("postList", posts);
+        model.addAttribute("curPage", pageNumber);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("endPage", endPage);
         return "myPage";
     }
 }
