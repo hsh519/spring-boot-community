@@ -1,3 +1,39 @@
-.user-info {
-    height: 200px;
+p {
+    display: block;
+    text-align: center;
+    font-size: 100px;
+}
+.info-wrapper {
+    width: 500px;
+    height: 400px;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    border-radius: 4px;
+}
+
+.info-wrapper .email-wrapper {
+    display: flex;
+    border-bottom: 1px solid #A3A3A3;
+}
+
+.info-wrapper .nickname-wrapper {
+    display: flex;
+    border-bottom: 1px solid #A3A3A3;
+}
+
+.info-wrapper .info-title {
+    display: block;
+    background-color: #E3E3E3;
+    text-align: center;
+    padding: 10px 0px;
+    flex: 1 1 30%;
+    color: #000000;
+}
+
+.info-wrapper .info-context {
+    display: block;
+    padding: 10px 0px;
+    flex: 1 1 70%;
+    color: #000000;
+    text-align: center;
 }

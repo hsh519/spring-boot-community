@@ -24,7 +24,7 @@ public class LikesController {
         likesService.updateLike(postSeq, loginMember.getMemberSeq());
 
         redirectAttributes.addFlashAttribute("callUpdate", false);
-        return "redirect:/postList/" + postSeq;
+        return "redirect:/post/" + postSeq;
     }
 
 }

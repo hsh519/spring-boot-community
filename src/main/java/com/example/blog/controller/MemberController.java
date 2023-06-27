@@ -131,6 +131,6 @@ public class MemberController {
         model.addAttribute("prevPage", prevPage);
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("endPage", endPage);
-        return "myPage";
+        return "myPost";
     }
 }

@@ -37,8 +37,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostListInCategory(Long categorySeq) {
-        return postRepository.findByCategory(categorySeq);
+    public List<Post> getPostListInCategory(Long categorySeq, Long startSeq, Long pageCnt) {
+        return postRepository.findByCategory(categorySeq, startSeq, pageCnt);
     }
 
     @Override
@@ -66,8 +66,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> search(String searchKeyword) {
-        return postRepository.findBySearch(searchKeyword);
+    public List<Post> search(String searchKeyword, Long startSeq, Long pageCnt) {
+        return postRepository.findBySearch(searchKeyword, startSeq, pageCnt);
+    }
+
+    @Override
+    public Integer getPostCntByCategory(Long categorySeq) {
+        return postRepository.postCntByCategory(categorySeq);
+    }
+
+    @Override
+    public Integer getPostCntBySearchKeyword(String searchKeyword) {
+        return postRepository.postCntBySearchKeyword(searchKeyword);
     }
 
     private static String getDateToString() {

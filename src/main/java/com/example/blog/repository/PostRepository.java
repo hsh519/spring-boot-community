@@ -13,7 +13,7 @@ public interface PostRepository {
 
     void postViewPlus(Long postSeq);
 
-    List<Post> findByCategory(Long categorySeq);
+    List<Post> findByCategory(Long categorySeq, Long startSeq, Long pageCnt);
 
     Post findBySeq(Long postSeq);
 
@@ -23,6 +23,10 @@ public interface PostRepository {
 
     Integer postCnt();
 
-    List<Post> findBySearch(String searchKeyword);
+    List<Post> findBySearch(String searchKeyword, Long startSeq, Long pageCnt);
+
+    Integer postCntByCategory(Long categorySeq);
+
+    Integer postCntBySearchKeyword(String searchKeyword);
 
 }

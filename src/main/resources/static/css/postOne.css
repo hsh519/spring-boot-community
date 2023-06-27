@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #F9DFBF;
+    background-color: #202124;
 }
 
 header {
@@ -25,6 +25,27 @@ header {
     font-weight: bold;
     letter-spacing: 4px;
     font-style: italic;
+    color: #FFFFFF;
+}
+
+.header-wrapper ul {
+    display: flex;
+    justify-content: space-between;
+}
+.header-wrapper ul li {
+    list-style: none;
+}
+
+.header-wrapper ul li a {
+    padding: 0 10px;
+    font-size: 17px;
+    text-decoration: none;
+    border-right: 1px solid #A3A3A3;
+    color: #FFFFFF;
+}
+
+.header-wrapper ul li:last-child a {
+    border-right: none;
 }
 
 main {
@@ -39,12 +60,14 @@ main {
 .main-title-wrapper .main-title {
     text-align: center;
     font-size: 100px;
+    color: #FFFFFF;
 }
 
 .main-title-wrapper .semi-title {
     font-size: 25px;
     text-align: center;
     margin-bottom: 20px;
+    color: #FFFFFF;
 }
 
 .main-section {
@@ -71,37 +94,6 @@ main {
     align-items: center;
 }
 
-.main-section .header .section-header-wrapper .left-section .section-header-menu {
-    list-style: none;
-    font-size: 18px;
-}
-
-.main-section .header .section-header-wrapper .left-section .section-header-menu a {
-    text-decoration: none;
-    color: #000000;
-}
-
-.main-section .header .section-header-wrapper .right-section {
-    width: 350px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.main-section .header .section-header-wrapper .right-section .search {
-    width: 200px;
-    font-size: 15px;
-    padding: 10px 14px;
-}
-
-.main-section .header .section-header-wrapper .right-section .account-button {
-    margin-left: 10px;
-    font-size: 15px;
-    color: #687698;
-    padding: 10px 14px;
-    background-color: #FFFFFF;
-    border: 1px solid #687698;
-    text-decoration: none;
-}
 .main {
     display: flex;
     margin-top: 30px;
@@ -116,9 +108,7 @@ main {
 .main .left-section .datetime {
     font-weight: lighter;
 }
-.main .left-section .writer {
-    display: block;
-}
+
 .main .left-section .title {
     font-size: 30px;
     margin-bottom: 15px;
@@ -129,55 +119,27 @@ main {
 .main .left-section .title-content-wrapper {
     margin-bottom: 50px;
 }
-.main .left-section .comment {
+.comment {
     padding: 20px 0px;
     border-top: 1px solid #A1A1A1;
     font-size: 18px;
 }
-.main .left-section .comment-writer {
+.comment-writer {
     font-weight: bold;
 }
-.main .left-section .comment-content {
+.comment-content {
     display: block;
 }
-.main .left-section .comment-update-date {
+.comment-update-date {
     font-weight: lighter;
     font-size: 12px;
 }
-.main .left-section .comment-box {
+.comment-box {
     width: 600px;
     height: 70px;
     display: block;
 }
-.main .left-section button {
-    margin-top: 10px;
-    font-size: 15px;
-    color: #FFFFFF;
-    padding: 10px 14px;
-    background-color: #687698;
-    border: 1px solid #FFFFFF;
-    text-decoration: none;
-}
-.main .right-section {
-    flex: 1 1 25%;
-    padding: 40px 50px;
-}
-.main .right-section .update {
-    font-size: 15px;
-    color: #FFFFFF;
-    padding: 10px 14px;
-    background-color: #687698;
-    border: 1px solid #687698;
-    text-decoration: none;
-}
-.main .right-section .delete {
-    font-size: 15px;
-    color: #687698;
-    padding: 10px 14px;
-    background-color: #FFFFFF;
-    border: 1px solid #687698;
-    text-decoration: none;
-}
+
 .main .right-section div {
     margin-bottom: 20px;
 }
@@ -185,7 +147,7 @@ main {
     margin-right: 10px;
     font-weight: lighter;
 }
-.main .right-section div .heart-button {
+.heart-button {
     border: none;
     outline: none;
     background-color: #FFFFFF;

@@ -75,17 +75,30 @@ public class PostController {
         return "postList";
     }
 
-    @GetMapping("/postList/search")
-    public String getSearchPost(@RequestParam("searchKeyword") String searchKeyword, Model model) {
-        log.info("searchKeyword={}", searchKeyword);
-        List<Post> searchPost = postService.search(searchKeyword);
-        for (Post post : searchPost) {
-            Integer likeCnt = likesService.countLikes(post.getPostSeq());
-            Integer commentCnt = commentService.getCommentCnt(post.getPostSeq());
-            post.setPostLike(likeCnt);
-            post.setPostComment(commentCnt);
+    @GetMapping("/myPage/search")
+    public String getSearchPost(@RequestParam("searchKeyword") String searchKeyword, @RequestParam int page, Model model) {
+        log.info("search={}", searchKeyword);
+        Long pageCnt = 5L;
+        Long startSeq =  (page-1) * pageCnt;
+        Integer allPostCnt = postService.getPostCntBySearchKeyword(searchKeyword);
+        int endPage;
+        if (allPostCnt % 5 == 0) {
+            endPage = allPostCnt / 5;
+        } else {
+            endPage = (int) ((double) allPostCnt / 5) + 1;
         }
-        model.addAttribute("postList", searchPost);
+
+        Boolean prevPage = (page == 1) ? false : true;
+        Boolean nextPage = (page == endPage) ? false : true;
+
+        List<Post> postList = postService.search(searchKeyword, startSeq, pageCnt);
+
+        model.addAttribute("postList", postList);
+        model.addAttribute("searchKeyword", searchKeyword);
+        model.addAttribute("curPage", page);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("endPage", endPage);
 
         return "searchPost";
     }
@@ -161,17 +174,36 @@ public class PostController {
         Member loginMember = (Member) session.getAttribute("loginMember");
         if (loginMember.getMemberSeq() == post.getMemberSeq()) {
             postService.deletePost(postSeq);
-            return "redirect:/";
+            return "redirect:/postList/1";
         } else {
             return "redirect:/error";
         }
     }
 
     @GetMapping("category/{categorySeq}")
-    public String postListInCategory(@PathVariable Long categorySeq, Model model) {
-        List<Post> postList = postService.getPostListInCategory(categorySeq);
+    public String postListInCategory(@PathVariable Long categorySeq, @RequestParam int page, Model model) {
+        Long pageCnt = 5L;
+        Long startSeq =  (page-1) * pageCnt;
+        Integer allPostCnt = postService.getPostCntByCategory(categorySeq);
+        int endPage;
+        if (allPostCnt % 5 == 0) {
+            endPage = allPostCnt / 5;
+        } else {
+            endPage = (int) ((double) allPostCnt / 5) + 1;
+        }
+
+        Boolean prevPage = (page == 1) ? false : true;
+        Boolean nextPage = (page == endPage) ? false : true;
+
+        List<Post> postList = postService.getPostListInCategory(categorySeq, startSeq, pageCnt);
+
         model.addAttribute("postList", postList);
-        return "postList";
+        model.addAttribute("categorySeq", categorySeq);
+        model.addAttribute("curPage", page);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("endPage", endPage);
+        return "categoryPostList";
     }
 
     @GetMapping("/error")

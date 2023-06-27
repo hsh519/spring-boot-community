@@ -12,7 +12,7 @@ public interface PostService {
 
     List<Post> getPostList(Long startSeq, Long pageCnt);
 
-    List<Post> getPostListInCategory(Long categorySeq);
+    List<Post> getPostListInCategory(Long categorySeq, Long startSeq, Long pageCnt);
 
     Post getPost(Long postSeq, Boolean isPostViewPlus);
 
@@ -22,6 +22,10 @@ public interface PostService {
 
     Integer getPostCnt();
 
-    List<Post> search(String searchKeyword);
+    List<Post> search(String searchKeyword, Long startSeq, Long pageCnt);
+
+    Integer getPostCntByCategory(Long categorySeq);
+
+    Integer getPostCntBySearchKeyword(String searchKeyword);
 
 }

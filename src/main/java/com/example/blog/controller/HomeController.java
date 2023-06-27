@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -19,10 +21,16 @@ public class HomeController {
     private CategoryService categoryService;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, HttpServletRequest request) {
         List<Category> categoryList = categoryService.getCategoryList();
         model.addAttribute("categories", categoryList);
-        model.addAttribute("searchKeyword", "");
+
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            model.addAttribute("sessionId", false);
+        } else {
+            model.addAttribute("sessionId", true);
+        }
         return "index";
     }
 

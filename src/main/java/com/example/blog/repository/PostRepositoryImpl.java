@@ -46,9 +46,9 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findByCategory(Long categorySeq) {
-        String sql = "select post_seq, post_name, post_writer, post_update from post where category_seq = ?";
-        return templates.query(sql, postAllRowMapper(), categorySeq);
+    public List<Post> findByCategory(Long categorySeq, Long startSeq, Long pageCnt) {
+        String sql = "select post_seq, post_name, post_writer, post_update from post where category_seq = ? order by post_seq desc limit ? offset ?";
+        return templates.query(sql, postAllRowMapper(), categorySeq, pageCnt, startSeq);
     }
 
     @Override
@@ -76,9 +76,21 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findBySearch(String searchKeyword) {
-        String sql = "select post_seq, post_name, post_writer, post_update from post where post_name like ?";
-        return templates.query(sql, postAllRowMapper(), "%"+searchKeyword+"%");
+    public List<Post> findBySearch(String searchKeyword, Long startSeq, Long pageCnt) {
+        String sql = "select post_seq, post_name, post_writer, post_update from post where post_name like ? order by post_seq limit ? offset ?";
+        return templates.query(sql, postAllRowMapper(), "%"+searchKeyword+"%", pageCnt, startSeq);
+    }
+
+    @Override
+    public Integer postCntByCategory(Long categorySeq) {
+        String sql = "select count(*) from post where category_seq = ?";
+        return templates.queryForObject(sql, Integer.class, categorySeq);
+    }
+
+    @Override
+    public Integer postCntBySearchKeyword(String searchKeyword) {
+        String sql = "select count(*) from post where post_name like ?";
+        return templates.queryForObject(sql, Integer.class,"%" + searchKeyword + "%");
     }
 
     private RowMapper<Post> postAllRowMapper() {

@@ -12,19 +12,21 @@
       <div class="header-title">Communicate</div>
       <ul>
         <li>
-          <a th:href="'/login'" />로그인</a>
+          <a th:if="${sessionId == false}" th:href="'/login'">로그인</a>
+          <a th:if="${sessionId == true}" th:href="'/logout'">로그아웃</a>
         </li>
         <li>
-          <a th:href="'/register'" />회원가입</a>
+          <a th:if="${sessionId == false}" th:href="'/register'">회원가입</a>
+          <a th:if="${sessionId == true}" th:href="'/info'">마이페이지</a>
         </li>
         <li>
-          <a th:href="'/'" />카테고리</a>
+          <a th:href="'/'">카테고리</a>
         </li>
         <li>
           <a th:href="'/postList/1'">모든 글</a>
         </li>
         <li>
-          <a th:href="'/myPage'">내가 쓴 글</a>
+          <a th:href="'/myPage/1'">내가 쓴 글</a>
         </li>
       </ul>
     </div>
@@ -45,7 +47,7 @@
         </div>
         <ul class="categories">
           <li th:each="category : ${categories}">
-            <a class="category-title" th:href="'category/' + ${category.categorySeq}" th:text="${category.categoryName}">category title</a>
+            <a class="category-title" th:href="'category/' + ${category.categorySeq} + '?page=1'" th:text="${category.categoryName}">category title</a>
           </li>
         </ul>
       </div>
