@@ -46,7 +46,8 @@
               <i class="fa-solid fa-pen-nib" style="margin-right: 10px;"></i>글 쓰기
             </a>
           </div>
-          <form th:action="'/postList/search'" method="get">
+          <form th:action="'/category/' + ${categorySeq}" method="get">
+            <input type="hidden" name="page" th:value="1">
             <input class="search" type="text" placeholder="Search" name="searchKeyword" />
             <button type="submit">검색</button>
           </form>
@@ -70,16 +71,16 @@
     </div>
 
     <div class="pagination">
-      <a th:if="${prevPage == true}" th:href="'/category/'+${categorySeq}+'?page='+(${curPage}-1)" style="color:#A1A1A1; text-decoration: none;">&langle;</a>
+      <a th:if="${prevPage == true}" th:href="'/category/'+${categorySeq}+'?page='+(${curPage}-1)+'&searchKeyword='+${searchKeyword}" style="color:#A1A1A1; text-decoration: none;">&langle;</a>
       <span th:if="${curPage+4 <= endPage}" th:each="pageNumber : ${#numbers.sequence(curPage, curPage+4)}">
-            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/category/'+${categorySeq}+'?page='+${pageNumber}"></a>
-            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/category/'+${categorySeq}+'?page='+${pageNumber}"></a>
+            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/category/'+${categorySeq}+'?page='+${pageNumber} + '&searchKeyword=' + ${searchKeyword}"></a>
+            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/category/'+${categorySeq}+'?page='+${pageNumber} + '&searchKeyword=' + ${searchKeyword}"></a>
             </span>
       <span th:if="${curPage+4 > endPage}" th:each="pageNumber : ${#numbers.sequence(curPage - (endPage - (endPage - curPage) - (endPage - 4)), endPage)}">
-            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/category/'+${categorySeq}+'?page='+${pageNumber}"></a>
-            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/category/'+${categorySeq}+'?page='+${pageNumber}"></a>
+            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/category/'+${categorySeq}+'?page='+${pageNumber} + '&searchKeyword=' + ${searchKeyword}"></a>
+            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/category/'+${categorySeq}+'?page='+${pageNumber} + '&searchKeyword=' + ${searchKeyword}"></a>
             </span>
-      <a th:if="${nextPage == true}" th:href="'/category/'+${categorySeq}+'?page='+(${curPage}+1)" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>
+      <a th:if="${nextPage == true}" th:href="'/category/'+${categorySeq}+'?page='+(${curPage}+1) + '&searchKeyword='+${searchKeyword}" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>
     </div>
   </section>
 </main>

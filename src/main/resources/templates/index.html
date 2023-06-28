@@ -23,7 +23,7 @@
           <a th:href="'/'">카테고리</a>
         </li>
         <li>
-          <a th:href="'/postList/1'">모든 글</a>
+          <a th:href="'/postList/1?searchKeyword='">모든 글</a>
         </li>
         <li>
           <a th:href="'/myPage/1'">내가 쓴 글</a>
@@ -47,7 +47,7 @@
         </div>
         <ul class="categories">
           <li th:each="category : ${categories}">
-            <a class="category-title" th:href="'category/' + ${category.categorySeq} + '?page=1'" th:text="${category.categoryName}">category title</a>
+            <a class="category-title" th:href="'category/' + ${category.categorySeq} + '?page=1&searchKeyword='" th:text="${category.categoryName}">category title</a>
           </li>
         </ul>
       </div>

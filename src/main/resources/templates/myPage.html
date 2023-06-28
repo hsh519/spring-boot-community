@@ -37,11 +37,11 @@
     <div class="info-wrapper">
         <div class="email-wrapper">
             <span class="info-title">이메일</span>
-            <span class="info-context">email</span>
+            <span class="info-context" th:text="${loginMember.memberId}">email</span>
         </div>
         <div class="nickname-wrapper">
             <span class="info-title">닉네임</span>
-            <span class="info-context">nickname</span>
+            <span class="info-context" th:text="${loginMember.memberName}">nickname</span>
         </div>
     </div>
 </body>

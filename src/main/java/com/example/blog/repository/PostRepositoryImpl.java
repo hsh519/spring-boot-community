@@ -34,9 +34,9 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> postAll(Long startSeq, Long pageCnt) {
-        String sql = "select post_seq, post_name, post_writer, post_update from post order by post_seq desc limit ? offset ?";
-        return templates.query(sql, postAllRowMapper(), pageCnt, startSeq);
+    public List<Post> postListBySearchKeyword(Long startSeq, Long pageCnt, String searchKeyword) {
+        String sql = "select post_seq, post_name, post_writer, post_update from post where post_name like ? order by post_seq desc limit ? offset ?";
+        return templates.query(sql, postAllRowMapper(), "%" + searchKeyword + "%", pageCnt, startSeq);
     }
 
     @Override
@@ -46,9 +46,9 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findByCategory(Long categorySeq, Long startSeq, Long pageCnt) {
-        String sql = "select post_seq, post_name, post_writer, post_update from post where category_seq = ? order by post_seq desc limit ? offset ?";
-        return templates.query(sql, postAllRowMapper(), categorySeq, pageCnt, startSeq);
+    public List<Post> findByCategoryAndSearch(Long categorySeq, Long startSeq, Long pageCnt, String searchKeyword) {
+        String sql = "select post_seq, post_name, post_writer, post_update from post where category_seq = ? and post_name like ? order by post_seq desc limit ? offset ?";
+        return templates.query(sql, postAllRowMapper(), categorySeq, "%" + searchKeyword + "%", pageCnt, startSeq);
     }
 
     @Override
@@ -82,9 +82,9 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Integer postCntByCategory(Long categorySeq) {
-        String sql = "select count(*) from post where category_seq = ?";
-        return templates.queryForObject(sql, Integer.class, categorySeq);
+    public Integer postCntByCategoryAndSearch(Long categorySeq, String searchKeyword) {
+        String sql = "select count(*) from post where category_seq = ? and post_name like ?";
+        return templates.queryForObject(sql, Integer.class, categorySeq, "%" + searchKeyword + "%");
     }
 
     @Override

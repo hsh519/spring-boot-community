@@ -13,10 +13,12 @@
     <div class="header-title">Communicate</div>
     <ul>
       <li>
-        <a th:href="'/login'" />로그인</a>
+        <a th:if="${sessionId == false}" th:href="'/login'">로그인</a>
+        <a th:if="${sessionId == true}" th:href="'/logout'">로그아웃</a>
       </li>
       <li>
-        <a th:href="'/register'" />회원가입</a>
+        <a th:if="${sessionId == false}" th:href="'/register'">회원가입</a>
+        <a th:if="${sessionId == true}" th:href="'/info'">마이페이지</a>
       </li>
       <li>
         <a th:href="'/'" />카테고리</a>
@@ -71,11 +73,11 @@
     <div class="pagination">
       <a th:if="${prevPage == true}" th:href="'/myPage/search?searchKeyword='+${searchKeyword}+'$page='+(${curPage}-1)" style="color:#A1A1A1; text-decoration: none;">&langle;</a>
       <span th:if="${curPage+4 <= endPage}" th:each="pageNumber : ${#numbers.sequence(curPage, curPage+4)}">
-            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="'/myPage/search?searchKeyword='+${searchKeyword}+'&page='+${pageNumber}"></a>
+            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;"th:text="${pageNumber}" th:href="'/myPage/search?searchKeyword='+${searchKeyword}+'&page='+${pageNumber}"></a>
             <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/myPage/search?searchKeyword='+${searchKeyword}+'&page='+${pageNumber}"></a>
             </span>
       <span th:if="${curPage+4 > endPage}" th:each="pageNumber : ${#numbers.sequence(curPage - (endPage - (endPage - curPage) - (endPage - 4)), endPage)}">
-            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="'/myPage/search?searchKeyword='+${searchKeyword}+'&page='+${pageNumber}"></a>
+            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/myPage/search?searchKeyword='+${searchKeyword}+'&page='+${pageNumber}"></a>
             <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/myPage/search?searchKeyword='+${searchKeyword}+'&page='+${pageNumber}"></a>
             </span>
       <a th:if="${nextPage == true}" th:href="'/myPage/search?searchKeyword='+${searchKeyword}+'$page='+(${curPage}+1)" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>

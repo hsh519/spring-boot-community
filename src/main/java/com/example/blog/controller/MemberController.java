@@ -131,6 +131,16 @@ public class MemberController {
         model.addAttribute("prevPage", prevPage);
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("endPage", endPage);
+        model.addAttribute("sessionId", true);
         return "myPost";
+    }
+
+    @GetMapping("/info")
+    public String info(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        model.addAttribute("sessionId", true);
+        return "myPage";
     }
 }

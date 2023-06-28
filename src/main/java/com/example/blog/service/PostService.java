@@ -10,9 +10,9 @@ public interface PostService {
 
     void post(Post post, Member member);
 
-    List<Post> getPostList(Long startSeq, Long pageCnt);
+    List<Post> getPostListBySearchKeyword(Long startSeq, Long pageCnt, String searchKeyword);
 
-    List<Post> getPostListInCategory(Long categorySeq, Long startSeq, Long pageCnt);
+    List<Post> getPostListByCategoryAndSearch(Long categorySeq, Long startSeq, Long pageCnt, String searchKeyword);
 
     Post getPost(Long postSeq, Boolean isPostViewPlus);
 
@@ -24,7 +24,7 @@ public interface PostService {
 
     List<Post> search(String searchKeyword, Long startSeq, Long pageCnt);
 
-    Integer getPostCntByCategory(Long categorySeq);
+    Integer getPostCntByCategoryAndSearch(Long categorySeq, String searchKeyword);
 
     Integer getPostCntBySearchKeyword(String searchKeyword);
 

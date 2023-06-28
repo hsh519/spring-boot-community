@@ -32,13 +32,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostList(Long startSeq, Long pageCnt) {
-        return postRepository.postAll(startSeq, pageCnt);
+    public List<Post> getPostListBySearchKeyword(Long startSeq, Long pageCnt, String searchKeyword) {
+        return postRepository.postListBySearchKeyword(startSeq, pageCnt, searchKeyword);
     }
 
     @Override
-    public List<Post> getPostListInCategory(Long categorySeq, Long startSeq, Long pageCnt) {
-        return postRepository.findByCategory(categorySeq, startSeq, pageCnt);
+    public List<Post> getPostListByCategoryAndSearch(Long categorySeq, Long startSeq, Long pageCnt, String searchKeyword) {
+        return postRepository.findByCategoryAndSearch(categorySeq, startSeq, pageCnt, searchKeyword);
     }
 
     @Override
@@ -71,8 +71,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Integer getPostCntByCategory(Long categorySeq) {
-        return postRepository.postCntByCategory(categorySeq);
+    public Integer getPostCntByCategoryAndSearch(Long categorySeq, String searchKeyword) {
+        return postRepository.postCntByCategoryAndSearch(categorySeq, searchKeyword);
     }
 
     @Override

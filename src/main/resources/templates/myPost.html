@@ -13,10 +13,12 @@
     <div class="header-title">Communicate</div>
     <ul>
       <li>
-        <a th:href="'/login'" />로그인</a>
+        <a th:if="${sessionId == false}" th:href="'/login'">로그인</a>
+        <a th:if="${sessionId == true}" th:href="'/logout'">로그아웃</a>
       </li>
       <li>
-        <a th:href="'/register'" />회원가입</a>
+        <a th:if="${sessionId == false}" th:href="'/register'">회원가입</a>
+        <a th:if="${sessionId == true}" th:href="'/info'">마이페이지</a>
       </li>
       <li>
         <a th:href="'/'" />카테고리</a>
@@ -46,7 +48,7 @@
               <i class="fa-solid fa-pen-nib" style="margin-right: 10px;"></i>글 쓰기
             </a>
           </div>
-          <form th:action="'/myPost/search'" method="get">
+          <form th:action="'/myPage/search'" method="get">
             <input class="search" type="text" placeholder="Search" name="searchKeyword" />
             <input type="hidden" name="page" th:value="1">
             <button type="submit">검색</button>
@@ -57,15 +59,23 @@
     <div class="main">
     </div>
     <div class="postList-header">
-      <div class="header no">번호</div>
-      <div class="header title">제목</div>
-      <div class="header regDate">작성</div>
+      <div class="header no" style="flex: 1 1 10%;">번호</div>
+      <div class="header title" style="flex: 1 1 50%;">제목</div>
+      <div class="header regDate" style="flex: 1 1 20%;">작성</div>
+      <div style="flex: 1 1 20%; text-align: center">옵션</div>
     </div>
 
     <div class="postList" th:each="post, postIndex : ${postList}">
-      <span class="no" th:text="(${curPage}-1) * 5 + ${postIndex.count}">1</span>
-      <a class="title" th:href="'/post/' + ${post.postSeq}" th:text="${post.postName}">title</a>
-      <span class="regDate" th:text="${post.postUpdate}">2023-06-02</span>
+      <span class="no" th:text="(${curPage}-1) * 5 + ${postIndex.count}" style="flex: 1 1 10%">1</span>
+      <a class="title" th:href="'/post/' + ${post.postSeq}" th:text="${post.postName}" style="flex: 1 1 50%;">title</a>
+      <span class="regDate" th:text="${post.postUpdate}" style="flex: 1 1 20%;">2023-06-02</span>
+        <form th:action="'/update/' + ${post.postSeq}" method="get" style="flex: 1 1 10%">
+          <button><i class="fa-solid fa-pen-nib"></i></button>
+        </form>
+        <form th:action="'/delete/' + ${post.postSeq}" method="get" style="flex: 1 1 10%">
+          <button><i class="fa-solid fa-trash"></i></button>
+        </form>
+
     </div>
 
     <div class="pagination">
