@@ -1,7 +1,6 @@
-package com.example.blog.repository;
+package com.example.blog.post.repository;
 
-import com.example.blog.domain.Post;
-import com.example.blog.domain.PostForm;
+import com.example.blog.post.domain.Post;
 
 import java.util.List;
 
@@ -28,5 +27,9 @@ public interface PostRepository {
     Integer postCntByCategoryAndSearch(Long categorySeq, String searchKeyword);
 
     Integer postCntBySearchKeyword(String searchKeyword);
+
+    List<Post> findByMemberIdAndKeyword(Long memberSeq, String searchKeyword, Long startSeq, Long pageCnt);
+
+    Integer countPostBySeqAndKeyword(Long memberSeq, String searchKeyword);
 
 }

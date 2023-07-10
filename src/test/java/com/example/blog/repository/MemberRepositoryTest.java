@@ -1,15 +1,13 @@
 package com.example.blog.repository;
 
-import com.example.blog.connection.ConnectionConst;
-import com.example.blog.domain.Member;
-import com.zaxxer.hikari.HikariDataSource;
+import com.example.blog.member.domain.Member;
+import com.example.blog.member.repository.MemberRepository;
+import com.example.blog.member.repository.MemberRepositoryImpl;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 
 import static com.example.blog.connection.ConnectionConst.*;
 

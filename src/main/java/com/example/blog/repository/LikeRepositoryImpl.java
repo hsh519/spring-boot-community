@@ -1,6 +1,5 @@
 package com.example.blog.repository;
 
-import com.example.blog.domain.Post;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

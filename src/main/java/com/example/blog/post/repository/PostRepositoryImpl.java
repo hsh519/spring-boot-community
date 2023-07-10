@@ -1,7 +1,6 @@
-package com.example.blog.repository;
+package com.example.blog.post.repository;
 
-import com.example.blog.domain.Post;
-import com.example.blog.domain.PostForm;
+import com.example.blog.post.domain.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -93,6 +92,18 @@ public class PostRepositoryImpl implements PostRepository {
         return templates.queryForObject(sql, Integer.class,"%" + searchKeyword + "%");
     }
 
+    @Override
+    public List<Post> findByMemberIdAndKeyword(Long memberSeq, String searchKeyword, Long startSeq, Long pageCnt) {
+        String sql = "select post_seq, post_name, post_update from post where post_name like ? and member_seq = ? order by post_seq limit ? offset ?";
+        return templates.query(sql, myPostsRowMapper(), "%" + searchKeyword + "%", memberSeq, pageCnt, startSeq);
+    }
+
+    @Override
+    public Integer countPostBySeqAndKeyword(Long memberSeq, String searchKeyword) {
+        String sql = "select count(*) from post where post_name like ? and member_seq = ?";
+        return templates.queryForObject(sql, Integer.class, "%" + searchKeyword + "%", memberSeq);
+    }
+
     private RowMapper<Post> postAllRowMapper() {
         return (rs, rowNum) -> {
             Post post = new Post();
@@ -100,6 +111,17 @@ public class PostRepositoryImpl implements PostRepository {
             post.setPostName(rs.getString(2));
             post.setPostWriter(rs.getString(3));
             post.setPostUpdate(rs.getString(4));
+
+            return post;
+        };
+    }
+
+    private RowMapper<Post> myPostsRowMapper() {
+        return (rs, rowNum) -> {
+            Post post = new Post();
+            post.setPostSeq(rs.getLong(1));
+            post.setPostName(rs.getString(2));
+            post.setPostUpdate(rs.getString(3));
 
             return post;
         };

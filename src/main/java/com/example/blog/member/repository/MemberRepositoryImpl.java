@@ -1,7 +1,7 @@
-package com.example.blog.repository;
+package com.example.blog.member.repository;
 
-import com.example.blog.domain.Member;
-import com.example.blog.domain.Post;
+import com.example.blog.member.domain.Member;
+import com.example.blog.post.domain.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,30 +22,30 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Member save(Member member) {
-        Long memberId = findLastMemberSeq()+1;
+    public void save(Member member) {
+        Long memberSeq = getLastMemberSeq()+1;
         String sql = "insert into member values(?,?,?,?)";
-        template.update(sql, memberId, member.getMemberId(), member.getMemberPw(), member.getMemberName());
-        return member;
+        template.update(sql, memberSeq, member.getMemberEmail(), member.getMemberPw(), member.getMemberName());
     }
 
     @Override
-    public Member findById(String memberId) {
+    public Integer countByEmail(String email) {
         try {
-            String sql = "select * from member where member_id = ?";
-            return template.queryForObject(sql, memberRowMapper(), memberId);
+            String sql = "select count(*) from member where member_email = ?";
+            return template.queryForObject(sql, Integer.class, email);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return 0;
         }
+
     }
 
     @Override
-    public Member findByName(String memberName) {
+    public Integer countByName(String name) {
         try {
             String sql = "select * from member where member_name = ?";
-            return template.queryForObject(sql, memberRowMapper(), memberName);
+            return template.queryForObject(sql, Integer.class, name);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return 0;
         }
     }
 
@@ -59,6 +59,12 @@ public class MemberRepositoryImpl implements MemberRepository {
     public Integer myPostCnt(Long postId) {
         String sql = "select count(*) from post where member_seq = ?";
         return template.queryForObject(sql, Integer.class, postId);
+    }
+
+    @Override
+    public Member findByEmail(String email) {
+        String sql = "select * from member where member_email = ?";
+        return template.queryForObject(sql, memberRowMapper(), email);
     }
 
     private RowMapper<Post> postAllMapper() {
@@ -77,16 +83,15 @@ public class MemberRepositoryImpl implements MemberRepository {
         return (rs, rowNum) -> {
                 Member member = new Member();
                 member.setMemberSeq(rs.getLong("member_seq"));
-                member.setMemberId(rs.getString("member_id"));
+                member.setMemberEmail(rs.getString("member_email"));
                 member.setMemberPw(rs.getString("member_pw"));
                 member.setMemberName(rs.getString("member_name"));
                 return member;
         };
     }
 
-    private Long findLastMemberSeq() {
-        String sql = "select * from member order by member_seq desc limit 1";
-        Member member = template.queryForObject(sql, memberRowMapper());
-        return member.getMemberSeq();
+    private Long getLastMemberSeq() {
+        String sql = "select member_seq from member order by member_seq desc limit 1";
+        return template.queryForObject(sql, Long.class);
     }
 }

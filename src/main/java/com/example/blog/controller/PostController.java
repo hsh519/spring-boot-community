@@ -1,10 +1,13 @@
 package com.example.blog.controller;
 
-import com.example.blog.domain.*;
+import com.example.blog.comment.domain.Comment;
+import com.example.blog.member.domain.Member;
+import com.example.blog.post.domain.Post;
+import com.example.blog.post.domain.PostForm;
 import com.example.blog.service.CategoryService;
-import com.example.blog.service.CommentService;
+import com.example.blog.comment.service.CommentService;
 import com.example.blog.service.LikesService;
-import com.example.blog.service.PostService;
+import com.example.blog.post.service.PostService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -74,21 +77,18 @@ public class PostController {
 
     @GetMapping("/myPage/search")
     public String getSearchPost(@RequestParam("searchKeyword") String searchKeyword, @RequestParam int page, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        Long memberSeq = loginMember.getMemberSeq();
+
         Long startSeq =  (page-1) * PAGE_CNT;
-        Integer allPostCnt = postService.getPostCntBySearchKeyword(searchKeyword);
-        int endPage = selectEndPage(allPostCnt);
+        Integer cnt = postService.getCountSearchPost(memberSeq, searchKeyword);
+        int endPage = selectEndPage(cnt);
 
         Boolean prevPage = (page == 1) ? false : true;
         Boolean nextPage = (page == endPage) ? false : true;
 
-        List<Post> postList = postService.search(searchKeyword, startSeq, PAGE_CNT);
-
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            model.addAttribute("sessionId", false);
-        } else {
-            model.addAttribute("sessionId", true);
-        }
+        List<Post> postList = postService.getSearchPost(loginMember.getMemberSeq(), searchKeyword, startSeq, PAGE_CNT);
 
         model.addAttribute("postList", postList);
         model.addAttribute("searchKeyword", searchKeyword);

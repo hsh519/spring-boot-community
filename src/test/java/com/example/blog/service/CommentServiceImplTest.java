@@ -1,9 +1,11 @@
 package com.example.blog.service;
 
-import com.example.blog.domain.Comment;
-import com.example.blog.domain.Member;
-import com.example.blog.repository.CommentRepository;
-import com.example.blog.repository.CommentRepositoryImpl;
+import com.example.blog.comment.domain.Comment;
+import com.example.blog.comment.service.CommentService;
+import com.example.blog.comment.service.CommentServiceImpl;
+import com.example.blog.member.domain.Member;
+import com.example.blog.comment.repository.CommentRepository;
+import com.example.blog.comment.repository.CommentRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

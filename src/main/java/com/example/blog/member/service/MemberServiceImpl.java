@@ -1,10 +1,9 @@
-package com.example.blog.service;
+package com.example.blog.member.service;
 
-import com.example.blog.domain.Member;
-import com.example.blog.domain.Post;
-import com.example.blog.repository.MemberRepository;
+import com.example.blog.member.domain.Member;
+import com.example.blog.post.domain.Post;
+import com.example.blog.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,8 +22,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member login(Member member) {
-        return memberRepository.findById(member.getMemberId());
+    public Member login(String email) {
+        return memberRepository.findByEmail(email);
     }
 
     @Override
@@ -35,5 +34,15 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Integer getMyPostCnt(Long postId) {
         return memberRepository.myPostCnt(postId);
+    }
+
+    @Override
+    public Integer countEmail(String email) {
+        return memberRepository.countByEmail(email);
+    }
+
+    @Override
+    public Integer countName(String name) {
+        return memberRepository.countByName(name);
     }
 }

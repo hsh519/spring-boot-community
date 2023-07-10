@@ -1,8 +1,7 @@
-package com.example.blog.service;
+package com.example.blog.post.service;
 
-import com.example.blog.domain.Member;
-import com.example.blog.domain.Post;
-import com.example.blog.domain.PostForm;
+import com.example.blog.member.domain.Member;
+import com.example.blog.post.domain.Post;
 
 import java.util.List;
 
@@ -20,12 +19,12 @@ public interface PostService {
 
     void deletePost(Long postSeq);
 
-    Integer getPostCnt();
-
-    List<Post> search(String searchKeyword, Long startSeq, Long pageCnt);
+    List<Post> getSearchPost(Long memberSeq, String searchKeyword, Long startSeq, Long pageCnt);
 
     Integer getPostCntByCategoryAndSearch(Long categorySeq, String searchKeyword);
 
     Integer getPostCntBySearchKeyword(String searchKeyword);
+
+    Integer getCountSearchPost(Long memberSeq, String searchKeyword);
 
 }

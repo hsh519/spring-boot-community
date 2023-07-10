@@ -1,13 +1,9 @@
 package com.example.blog.controller;
 
-import com.example.blog.domain.Member;
-import com.example.blog.domain.MemberLoginForm;
-import com.example.blog.domain.MemberRegisterForm;
-import com.example.blog.domain.Post;
-import com.example.blog.repository.MemberRepository;
-import com.example.blog.service.MemberService;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import com.example.blog.member.domain.Member;
+import com.example.blog.member.domain.MemberLoginForm;
+import com.example.blog.member.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,83 +12,87 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
-@AllArgsConstructor
-@Slf4j
+@RequiredArgsConstructor
 public class MemberController {
 
-    private MemberService memberService;
-    private MemberRepository memberRepository;
+    private final MemberService memberService;
 
     @GetMapping("/register")
     public String registerForm(Model model) {
-        model.addAttribute("memberRegisterForm", new MemberRegisterForm());
+        model.addAttribute("member", new Member());
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(@Validated @ModelAttribute MemberRegisterForm memberRegisterForm, BindingResult bindingResult, Model model) {
+    public String register(@Validated @ModelAttribute Member member, BindingResult bindingResult, Model model) {
+
         // Bean Validation에 위반할 경우
         if (bindingResult.hasErrors()) {
-            model.addAttribute("memberRegisterForm", memberRegisterForm);
+            model.addAttribute("member", member);
             return "/register";
         }
         // 중복되는 아이디일 경우
-        if (memberRepository.findById(memberRegisterForm.getMemberId()) != null) {
+        if (memberService.countEmail(member.getMemberEmail()) != 0) {
             bindingResult.rejectValue("memberId", "duplicateId");
         }
         // 비밀번호가 일치하지 않을 경우 (memberPw != checkPw)
-        else if (!memberRegisterForm.getMemberPw().equals(memberRegisterForm.getCheckPw())) {
+        else if (!member.getMemberPw().equals(member.getCheckPw())) {
             bindingResult.rejectValue("checkPw","NotCorrectPw");
         }
         // 중복되는 닉네임일 경우
-        else if (memberRepository.findByName(memberRegisterForm.getMemberName()) != null) {
+        else if (memberService.countName(member.getMemberName()) != 0) {
             bindingResult.rejectValue("memberName","duplicateName");
         }
 
+        // 위 3가지 사항에 위반할 경우
         if (bindingResult.hasErrors()) {
-            model.addAttribute("memberRegisterForm", memberRegisterForm);
+            model.addAttribute("member", member);
             return "/register";
         }
 
-        Member member = new Member(memberRegisterForm.getMemberId(), memberRegisterForm.getMemberPw(), memberRegisterForm.getMemberName());
+        // 회원 저장
         memberService.register(member);
         return "redirect:/";
     }
 
     @GetMapping("/login")
     public String loginForm(Model model) {
-        model.addAttribute("memberLoginForm", new MemberLoginForm());
+        model.addAttribute("loginForm", new MemberLoginForm());
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@Validated @ModelAttribute MemberLoginForm memberLoginForm, BindingResult bindingResult, String requestURI, Model model, HttpServletRequest request) {
+    public String login(@Validated @ModelAttribute("loginForm") MemberLoginForm member, BindingResult bindingResult, Model model, HttpServletRequest request) {
+        // Bean Validation에 위반할 경우
         if (bindingResult.hasErrors()) {
-            model.addAttribute("memberLoginForm", memberLoginForm);
+            model.addAttribute("member", member);
             return "login";
         }
 
-        requestURI = request.getParameter("requestURI");
+        String requestURI = request.getParameter("requestURI");
+        requestURI = (requestURI == null) ? "/" : requestURI;
 
-        if (requestURI == null) {
-            requestURI = "/";
+        String loginEmail = member.getMemberEmail();
+
+        // 일치하는 이메일이 없는 경우
+        if (memberService.countEmail(loginEmail) == 0) {
+            bindingResult.reject("NotFoundAccount",null,"일치하는 이메일이 없습니다.");
+            model.addAttribute("member", member);
+            return "login";
         }
 
-        Member member = new Member(memberLoginForm.getMemberId(), memberLoginForm.getMemberPw());
-        Member loginMember = memberService.login(member);
+        Member loginMember = memberService.login(loginEmail);
 
-        if (loginMember == null) {
-            bindingResult.reject("NotFoundAccount",null,"일치하는 아이디가 없습니다.");
-            model.addAttribute("memberLoginForm", memberLoginForm);
-            return "login";
-        } else if (! loginMember.getMemberPw().equals(member.getMemberPw())) {
+        // 패스워드가 틀린 경우
+        if (! member.getMemberPw().equals(loginMember.getMemberPw())) {
             bindingResult.reject("NotCorrectPw", null, "비밀번호가 일치하지 않습니다.");
-            model.addAttribute("memberLoginForm", memberLoginForm);
+            model.addAttribute("member", member);
             return "login";
         }
+
+        // 세션에 담기
         HttpSession session = request.getSession();
         session.setAttribute("loginMember", loginMember);
         return "redirect:" + requestURI;
@@ -105,42 +105,11 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/myPage/{pageNumber}")
-    public String myPage(HttpServletRequest request, @PathVariable int pageNumber, Model model) {
-        Long pageCnt = 5L;
-        Long startSeq =  (pageNumber-1) * pageCnt;
-        int endPage;
-
-        HttpSession session = request.getSession(false);
-        Member loginMember = (Member) session.getAttribute("loginMember");
-        Integer myPostCnt = memberService.getMyPostCnt(loginMember.getMemberSeq());
-
-        if (myPostCnt % 5 == 0) {
-            endPage = myPostCnt / 5;
-        } else {
-            endPage = (int) ((double) myPostCnt / 5) + 1;
-        }
-
-        Boolean prevPage = (pageNumber == 1) ? false : true;
-        Boolean nextPage = (pageNumber == endPage) ? false : true;
-
-        List<Post> posts = memberService.myPost(loginMember, startSeq, pageCnt);
-
-        model.addAttribute("postList", posts);
-        model.addAttribute("curPage", pageNumber);
-        model.addAttribute("prevPage", prevPage);
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("sessionId", true);
-        return "myPost";
-    }
-
     @GetMapping("/info")
     public String info(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
         Member loginMember = (Member) session.getAttribute("loginMember");
         model.addAttribute("loginMember", loginMember);
-        model.addAttribute("sessionId", true);
         return "myPage";
     }
 }

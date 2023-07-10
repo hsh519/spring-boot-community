@@ -1,7 +1,7 @@
-package com.example.blog.service;
+package com.example.blog.comment.service;
 
-import com.example.blog.domain.Comment;
-import com.example.blog.domain.Member;
+import com.example.blog.comment.domain.Comment;
+import com.example.blog.member.domain.Member;
 
 import java.util.List;
 
@@ -10,6 +10,4 @@ public interface CommentService {
     void comment(Comment comment, Member member);
 
     List<Comment> getCommentList(Long postSeq);
-
-    Integer getCommentCnt(Long postSeq);
 }

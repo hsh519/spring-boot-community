@@ -15,9 +15,9 @@
 
 <main>
   <section class="login-section">
-    <form action="" th:object="${memberLoginForm}" method="post">
-      <input class="id-box" type="email" th:field="*{memberId}" placeholder="아이디">
-      <p class="error" th:errors="*{memberId}"></p>
+    <form action="" th:object="${loginForm}" method="post">
+      <input class="id-box" type="email" th:field="*{memberEmail}" placeholder="아이디">
+      <p class="error" th:errors="*{memberEmail}"></p>
       <input class="password-box" type="password" th:field="*{memberPw}" placeholder="패스워드">
       <p class="error" th:errors="*{memberPw}"></p>
       <div th:if="${#fields.hasGlobalErrors()}">

@@ -1,6 +1,6 @@
-package com.example.blog.repository;
+package com.example.blog.comment.repository;
 
-import com.example.blog.domain.Comment;
+import com.example.blog.comment.domain.Comment;
 
 import java.util.List;
 

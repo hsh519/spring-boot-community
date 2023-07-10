@@ -1,8 +1,10 @@
 package com.example.blog.service;
 
-import com.example.blog.domain.Member;
-import com.example.blog.repository.MemberRepository;
-import com.example.blog.repository.MemberRepositoryImpl;
+import com.example.blog.member.domain.Member;
+import com.example.blog.member.repository.MemberRepository;
+import com.example.blog.member.repository.MemberRepositoryImpl;
+import com.example.blog.member.service.MemberService;
+import com.example.blog.member.service.MemberServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,7 +55,7 @@ public class MemberServiceImplTest {
     void 회원가입() throws SQLException {
         Member member = new Member(3L, "id3", "pw3", "name3");
         memberService.register(member);
-        Member findMember = memberRepository.findById(member.getMemberId());
+        Member findMember = memberRepository.findById(member.getMemberEmail());
         assertThat(findMember.getMemberName()).isEqualTo(member.getMemberName());
     }
 }

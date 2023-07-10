@@ -15,9 +15,9 @@
 
 <main>
     <section class="register-section">
-        <form action="" th:object="${memberRegisterForm}" method="post">
-            <input th:errorclass="field-error" class="id-box" type="email" th:field="*{memberId}" placeholder="아이디">
-            <p class="error" th:errors="*{memberId}"></p>
+        <form action="" th:object="${member}" method="post">
+            <input th:errorclass="field-error" class="id-box" type="email" th:field="*{memberEmail}" placeholder="아이디">
+            <p class="error" th:errors="*{memberEmail}"></p>
             <input th:errorclass="field-error" class="password-box" type="password" th:field="*{memberPw}" placeholder="패스워드">
             <p class="error" th:errors="*{memberPw}"></p>
             <input th:errorclass="field-error" class="password-box" type="password" th:field="*{checkPw}" placeholder="패스워드 확인">
