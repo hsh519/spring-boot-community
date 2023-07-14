@@ -21,7 +21,5 @@ public class Comment {
 
     private String commentWriter;
 
-    private String commentRegister;
-
     private String commentUpdate;
 }

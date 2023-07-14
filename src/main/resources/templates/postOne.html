@@ -12,21 +12,19 @@
     <div class="header-title">Communicate</div>
     <ul>
       <li>
-        <a th:if="${sessionId == false}" th:href="'/login'">로그인</a>
-        <a th:if="${sessionId == true}" th:href="'/logout'">로그아웃</a>
+        <a th:href="'/logout'">로그아웃</a>
       </li>
       <li>
-        <a th:if="${sessionId == false}" th:href="'/register'">회원가입</a>
-        <a th:if="${sessionId == true}" th:href="'/info'">마이페이지</a>
+        <a th:href="'/info'">마이페이지</a>
       </li>
       <li>
         <a th:href="'/'">카테고리</a>
       </li>
       <li>
-        <a th:href="'/postList/1'">모든 글</a>
+        <a th:href="'/postList?page=1&searchKeyword='">모든 글</a>
       </li>
       <li>
-        <a th:href="'/myPage/1'">내가 쓴 글</a>
+        <a th:href="'/myPost?page=1&searchKeyword='">내가 쓴 글</a>
       </li>
     </ul>
   </div>
@@ -62,13 +60,13 @@
           </div>
           <div class="comment">Comments([[${commentCnt}]])</div>
           <div th:each="comment : ${commentList}" style="margin-bottom: 15px;">
-            <p class="comment-writer">[[${comment.comment_writer}]]</p>
-            <span class="comment-content">[[${comment.comment_content}]]</span>
-            <span class="comment-update-date">[[${comment.comment_update}]]</span>
+            <p class="comment-writer">[[${comment.commentWriter}]]</p>
+            <span class="comment-content">[[${comment.commentContent}]]</span>
+            <span class="comment-update-date">[[${comment.commentUpdate}]]</span>
           </div>
         <form th:action="@{'/comment'}" th:method="post">
           <input type="hidden" th:field="*{postSeq}">
-          <textarea class="comment-box" th:field="${comment.comment_content}"></textarea>
+          <textarea class="comment-box" th:field="${comment.commentContent}"></textarea>
           <div th:if="${errors}" style="color: #FF0000;">[[${errors}]]</div>
           <button>등록</button>
         </form>

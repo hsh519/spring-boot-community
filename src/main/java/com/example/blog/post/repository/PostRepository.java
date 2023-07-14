@@ -8,11 +8,9 @@ public interface PostRepository {
 
     void save(Post post);
 
-    List<Post> postListBySearchKeyword(Long startSeq, Long pageCnt, String searchKeyword);
+    Integer countAllByKeyword(String searchKeyword);
 
-    void postViewPlus(Long postSeq);
-
-    List<Post> findByCategoryAndSearch(Long categorySeq, Long startSeq, Long pageCnt, String searchKeyword);
+    List<Post> findAllByKeyword(Long startSeq, Long pageCnt, String searchKeyword);
 
     Post findBySeq(Long postSeq);
 
@@ -20,16 +18,12 @@ public interface PostRepository {
 
     void delete(Long postSeq);
 
-    Integer postCnt();
+    Integer countMyPostsByKeyword(Long memberSeq, String searchKeyword);
 
-    List<Post> findBySearch(String searchKeyword, Long startSeq, Long pageCnt);
+    List<Post> findMyPostsByKeyword(Long memberSeq, String searchKeyword, Long startSeq, Long pageCnt);
 
-    Integer postCntByCategoryAndSearch(Long categorySeq, String searchKeyword);
+    List<Post> findAllByCategorySeqAndKeyword(Long categorySeq, Long startSeq, Long pageCnt, String searchKeyword);
 
-    Integer postCntBySearchKeyword(String searchKeyword);
-
-    List<Post> findByMemberIdAndKeyword(Long memberSeq, String searchKeyword, Long startSeq, Long pageCnt);
-
-    Integer countPostBySeqAndKeyword(Long memberSeq, String searchKeyword);
+    Integer countAllByCategoryAndKeyword(Long categorySeq, String searchKeyword);
 
 }

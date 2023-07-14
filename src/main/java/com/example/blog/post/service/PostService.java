@@ -9,22 +9,18 @@ public interface PostService {
 
     void post(Post post, Member member);
 
-    List<Post> getPostListBySearchKeyword(Long startSeq, Long pageCnt, String searchKeyword);
+    Integer getPostsCnt(Long categorySeq, String searchKeyword);
 
-    List<Post> getPostListByCategoryAndSearch(Long categorySeq, Long startSeq, Long pageCnt, String searchKeyword);
+    List<Post> getPosts(Long categorySeq, Long startSeq, Long pageCnt, String searchKeyword);
 
-    Post getPost(Long postSeq, Boolean isPostViewPlus);
+    Post getPost(Long postSeq);
 
     void updatePost(Post post, Long postSeq);
 
     void deletePost(Long postSeq);
 
-    List<Post> getSearchPost(Long memberSeq, String searchKeyword, Long startSeq, Long pageCnt);
+    Integer getMyPostsCnt(Long memberSeq, String searchKeyword);
 
-    Integer getPostCntByCategoryAndSearch(Long categorySeq, String searchKeyword);
-
-    Integer getPostCntBySearchKeyword(String searchKeyword);
-
-    Integer getCountSearchPost(Long memberSeq, String searchKeyword);
+    List<Post> getMyPosts(Long memberSeq, String searchKeyword, Long startSeq, Long pageCnt);
 
 }

@@ -13,21 +13,19 @@
     <div class="header-title">Communicate</div>
     <ul>
       <li>
-        <a th:if="${sessionId == false}" th:href="'/login'">로그인</a>
-        <a th:if="${sessionId == true}" th:href="'/logout'">로그아웃</a>
+        <a th:href="'/logout'">로그아웃</a>
       </li>
       <li>
-        <a th:if="${sessionId == false}" th:href="'/register'">회원가입</a>
-        <a th:if="${sessionId == true}" th:href="'/info'">마이페이지</a>
+        <a th:href="'/info'">마이페이지</a>
       </li>
       <li>
         <a th:href="'/'" />카테고리</a>
       </li>
       <li>
-        <a th:href="'/postList/1'">모든 글</a>
+        <a th:href="'/postList?page=1&searchKeyword='">모든 글</a>
       </li>
       <li>
-        <a th:href="'/myPage/1'">내가 쓴 글</a>
+        <a th:href="'/myPost?page=1&searchKeyword='">내가 쓴 글</a>
       </li>
     </ul>
   </div>
@@ -48,7 +46,7 @@
               <i class="fa-solid fa-pen-nib" style="margin-right: 10px;"></i>글 쓰기
             </a>
           </div>
-          <form th:action="'/myPage/search'" method="get">
+          <form th:action="'/myPost'" method="get">
             <input class="search" type="text" placeholder="Search" name="searchKeyword" />
             <input type="hidden" name="page" th:value="1">
             <button type="submit">검색</button>
@@ -79,16 +77,16 @@
     </div>
 
     <div class="pagination">
-      <a th:if="${prevPage == true}" th:href="'/myPage/'+(${curPage}-1)" style="color:#A1A1A1; text-decoration: none;">&langle;</a>
+      <a th:if="${prevPage == true}" th:href="'/myPost?page='+(${curPage}-1) + '&searchKeyword=' + ${searchKeyword}" style="color:#A1A1A1; text-decoration: none;">&langle;</a>
       <span th:if="${curPage+4 <= endPage}" th:each="pageNumber : ${#numbers.sequence(curPage, curPage+4)}">
-            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/myPage/'+${pageNumber}"></a>
-            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/myPage/'+${pageNumber}"></a>
+            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/myPost?page='+${pageNumber} + '&searchKeyword=' + ${searchKeyword}"></a>
+            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/myPost?page='+${pageNumber} + '&searchKeyword=' + ${searchKeyword}"></a>
             </span>
       <span th:if="${curPage+4 > endPage}" th:each="pageNumber : ${#numbers.sequence(curPage - (endPage - (endPage - curPage) - (endPage - 4)), endPage)}">
-            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/myPage/'+${pageNumber}"></a>
-            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/myPage/'+${pageNumber}"></a>
+            <a th:if="${pageNumber} == ${curPage} and ${pageNumber} > 0" style="color: #FF0000; font-weight: bold;" th:text="${pageNumber}" th:href="'/myPost?page='+${pageNumber} + '&searchKeyword=' + ${searchKeyword}"></a>
+            <a th:if="${pageNumber} != ${curPage} and ${pageNumber} > 0" th:text="${pageNumber}" th:href="'/myPost?page='+${pageNumber} + '&searchKeyword=' + ${searchKeyword}"></a>
             </span>
-      <a th:if="${nextPage == true}" th:href="'/myPage/'+(${curPage}+1)" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>
+      <a th:if="${nextPage == true}" th:href="'/myPost?page='+(${curPage}+1) + '&searchKeyword=' + ${searchKeyword}" style="color: #A1A1A1; text-decoration: none;">&rangle;</a>
     </div>
   </section>
 </main>

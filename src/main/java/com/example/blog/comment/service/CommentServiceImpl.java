@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getCommentList(Long postSeq) {
+    public List<Comment> getComments(Long postSeq) {
         return commentRepository.findAll(postSeq);
     }
 
@@ -39,7 +39,6 @@ public class CommentServiceImpl implements CommentService {
     private static void setRegisterAndUpdateDate(Comment comment) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String date = simpleDateFormat.format(new Date());
-        comment.setCommentRegister(date);
         comment.setCommentUpdate(date);
     }
 }

@@ -21,12 +21,11 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public void save(Comment comment) {
-        comment.setCommentSeq(getLastCommentSeq()+1);
-        String sql = "insert into comment values(?,?,?,?,?,?,?)";
+        String sql = "insert into comment values(?,?,?,?,?,?)";
         templates.update(
-                sql, comment.getCommentSeq(), comment.getPostSeq(), comment.getMemberSeq(),
+                sql, getLastCommentSeq()+1, comment.getPostSeq(), comment.getMemberSeq(),
                 comment.getCommentContent(), comment.getCommentWriter(),
-                comment.getCommentRegister(), comment.getCommentUpdate());
+                comment.getCommentUpdate());
     }
 
     @Override

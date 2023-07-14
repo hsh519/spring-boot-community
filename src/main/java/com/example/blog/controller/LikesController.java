@@ -1,7 +1,7 @@
 package com.example.blog.controller;
 
 import com.example.blog.member.domain.Member;
-import com.example.blog.service.LikesService;
+import com.example.blog.likes.service.LikesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;

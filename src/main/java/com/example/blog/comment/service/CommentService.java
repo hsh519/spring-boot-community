@@ -9,5 +9,5 @@ public interface CommentService {
 
     void comment(Comment comment, Member member);
 
-    List<Comment> getCommentList(Long postSeq);
+    List<Comment> getComments(Long postSeq);
 }

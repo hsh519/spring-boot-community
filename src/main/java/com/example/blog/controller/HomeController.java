@@ -1,8 +1,8 @@
 package com.example.blog.controller;
 
 
-import com.example.blog.domain.Category;
-import com.example.blog.service.CategoryService;
+import com.example.blog.category.domain.Category;
+import com.example.blog.category.service.CategoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model, HttpServletRequest request) {
-        List<Category> categoryList = categoryService.getCategoryList();
+        List<Category> categoryList = categoryService.getCategories();
         model.addAttribute("categories", categoryList);
 
         HttpSession session = request.getSession(false);

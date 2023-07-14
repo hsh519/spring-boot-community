@@ -1,13 +1,13 @@
 package com.example.blog.repository;
 
-import com.example.blog.connection.ConnectionConst;
-import com.example.blog.domain.Category;
+import com.example.blog.category.domain.Category;
+import com.example.blog.category.repository.CategoryRepository;
+import com.example.blog.category.repository.CategoryRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;

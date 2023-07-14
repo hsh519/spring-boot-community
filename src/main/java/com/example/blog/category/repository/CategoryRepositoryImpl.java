@@ -1,6 +1,6 @@
-package com.example.blog.repository;
+package com.example.blog.category.repository;
 
-import com.example.blog.domain.Category;
+import com.example.blog.category.domain.Category;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -18,12 +18,12 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public List<Category> CategoryAll() {
+    public List<Category> findAll() {
         String sql = "select * from category";
-        return template.query(sql, CategoryNamesRowWrapper());
+        return template.query(sql, CategoriesRowWrapper());
     }
 
-    private RowMapper<Category> CategoryNamesRowWrapper() {
+    private RowMapper<Category> CategoriesRowWrapper() {
         return (rs, rowNum) -> {
             Category category = new Category();
             category.setCategorySeq(rs.getLong(1));

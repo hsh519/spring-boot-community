@@ -1,4 +1,4 @@
-package com.example.blog.repository;
+package com.example.blog.likes.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,9 +15,15 @@ public class LikeRepositoryImpl implements LikesRepository {
     }
 
     @Override
-    public Integer isLike(Long postSeq, Long memberSeq) {
+    public Integer getLike(Long postSeq, Long memberSeq) {
         String sql = "select count(*) from likes where post_seq = ? and member_seq = ?";
         return templates.queryForObject(sql, Integer.class, postSeq, memberSeq);
+    }
+
+    @Override
+    public Integer countLikes(Long postSeq) {
+        String sql = "select count(*) from likes where post_seq = ?";
+        return templates.queryForObject(sql, Integer.class, postSeq);
     }
 
     @Override
@@ -32,12 +38,6 @@ public class LikeRepositoryImpl implements LikesRepository {
         String sql = "delete from likes where post_seq = ? and member_seq = ?";
         templates.update(sql, postSeq, memberSeq);
 
-    }
-
-    @Override
-    public Integer countByPostSeq(Long postSeq) {
-        String sql = "select count(*) from likes where post_seq = ?";
-        return templates.queryForObject(sql, Integer.class, postSeq);
     }
 
     private Long getLastLikesSeq() {

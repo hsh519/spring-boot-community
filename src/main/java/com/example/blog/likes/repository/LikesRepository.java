@@ -1,11 +1,11 @@
-package com.example.blog.repository;
+package com.example.blog.likes.repository;
 
 public interface LikesRepository {
-    Integer isLike(Long postSeq, Long memberSeq);
+    Integer getLike(Long postSeq, Long memberSeq);
+
+    Integer countLikes(Long postSeq);
 
     void addLike(Long postSeq, Long memberSeq);
 
     void removeLike(Long postSeq, Long memberSeq);
-
-    Integer countByPostSeq(Long postSeq);
 }

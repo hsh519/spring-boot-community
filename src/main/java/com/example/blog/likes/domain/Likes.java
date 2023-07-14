@@ -1,4 +1,4 @@
-package com.example.blog.domain;
+package com.example.blog.likes.domain;
 
 import lombok.Data;
 

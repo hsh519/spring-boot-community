@@ -1,5 +1,6 @@
 package com.example.blog.post.domain;
 
+import com.example.blog.member.domain.Member;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -34,20 +35,20 @@ public class Post {
     private String postContent;
 
     @NotNull
-    private String postRegister;
-
-    @NotNull
     private String postUpdate;
 
-    private int postView;
-
     private int postLike;
-
-    private int postComment;
 
     public Post(Long categorySeq, String postName, String postContent) {
         this.categorySeq = categorySeq;
         this.postName = postName;
         this.postContent = postContent;
     }
+
+    public void setMemberAndDate(Member member, String date) {
+        this.setMemberSeq(member.getMemberSeq());
+        this.setPostWriter(member.getMemberName());
+        this.setPostUpdate(date);
+    }
+
 }

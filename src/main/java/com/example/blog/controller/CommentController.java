@@ -25,8 +25,6 @@ public class CommentController {
                           RedirectAttributes redirectAttributes,
                           HttpServletRequest request,
                           BindingResult bindingResult) {
-        redirectAttributes.addFlashAttribute("callUpdate", true);
-
         // 댓글 내용이 없을 경우
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", "댓글을 입력해주세요.");

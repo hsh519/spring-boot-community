@@ -13,9 +13,5 @@ public interface MemberRepository {
 
     Integer countByName(String name);
 
-    List<Post> getMyPost(Long memberId, Long startSeq, Long pageCnt);
-
-    Integer myPostCnt(Long postId);
-
     Member findByEmail(String email);
 }
