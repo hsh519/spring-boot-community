@@ -199,7 +199,18 @@ public class PostController {
     public String postListInCategory(@PathVariable Long categorySeq,
                                      @RequestParam int page,
                                      @RequestParam String searchKeyword,
+                                     HttpServletRequest request,
                                      Model model) {
+
+        // 로그인 여부에 따른 메뉴 변경
+        Member loginMember = getLoginMember(request);
+
+        if (loginMember == null) {
+            model.addAttribute("sessionId", false);
+        } else {
+            model.addAttribute("sessionId", true);
+        }
+
         // 카테고리별 게시물 개수로 시작, 끝 페이지 결정
         Long startSeq =  (page-1) * PAGE_CNT;
         Integer postsCnt = postService.getPostsCnt(categorySeq, searchKeyword);

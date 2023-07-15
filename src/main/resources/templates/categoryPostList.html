@@ -5,21 +5,26 @@
   <title>Title</title>
   <link href="/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/postList.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/0fc2b155a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
   <div class="header-wrapper">
-    <div class="header-title">Communicate</div>
+    <div class="header-title" style="font-family: 'Dancing Script', cursive;">Community</div>
     <ul>
       <li>
-        <a th:href="'/login'" />로그인</a>
+        <a th:if="${sessionId == false}" th:href="'/login'">로그인</a>
+        <a th:if="${sessionId == true}" th:href="'/logout'">로그아웃</a>
       </li>
       <li>
-        <a th:href="'/register'" />회원가입</a>
+        <a th:if="${sessionId == false}" th:href="'/register'">회원가입</a>
+        <a th:if="${sessionId == true}" th:href="'/info'">마이페이지</a>
       </li>
       <li>
-        <a th:href="'/'" />카테고리</a>
+        <a th:href="'/'">카테고리</a>
       </li>
       <li>
         <a th:href="'/postList?page=1&searchKeyword='">모든 글</a>
@@ -33,7 +38,7 @@
 
 <main>
   <div class="main-title-wrapper">
-    <p class="main-title">Online Community</p>
+    <p class="main-title" style="font-family: 'Dancing Script', cursive;">Online Community</p>
     <p class="semi-title">자신의 이야기를 자유롭게 작성해보세요</p>
   </div>
 
